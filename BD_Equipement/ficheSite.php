@@ -4,7 +4,15 @@
 
   // $site = $_POST['site'];
   $site = $_GET['site'];
-  var_dump($site);
+  // var_dump($site);
+  $sql = "SELECT commune || ' - ' || ".'"Nom_Site"'." AS site FROM md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
+  $req_nom_site = pg_query($dbConnect, $sql);
+  $nom_site = pg_fetch_object($req_nom_site);
+  $nom_site = $nom_site->site;
+
+  $content = "<h1>Fiche Caractéristique<h1>";
+  $content .= "<br/><h2>".$nom_site."</h2>";
+  $content .= "<br/>c'est :";
 
   $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."'";
   $req_nb_panneau = pg_query($dbConnect, $sql);
@@ -43,6 +51,8 @@
   echo("<br/>Nb Amgt Gestion = ".$nb_autreamgtzoot);
 
   if ($nb_panneau != 0) {
+    $content_panneau = $nb_panneau ."Panneau";
+
     $sql = "SELECT COUNT(*) FROM bd_equipement.type_panneau";
     $req_nb_typePanneau = pg_query($dbConnect, $sql);
     $nb_typePanneau = pg_fetch_object($req_nb_typePanneau);
@@ -56,12 +66,12 @@
       echo("<br/>Il y a ".$nb_panneau_type." de type ".$i);
     }
 
-    // foreach ($nb_panneau as $panneau) {
-    //   // code...
-    // }
+    $content .= $content_panneau;
   }
 
   pg_close($dbConnect);
+
+  echo($content);
 ?>
 
 
