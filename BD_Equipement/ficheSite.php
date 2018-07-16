@@ -6,45 +6,62 @@
   $site = $_GET['site'];
   var_dump($site);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.panneau, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
+  $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."'";
   $req_nb_panneau = pg_query($dbConnect, $sql);
   $nb_panneau = pg_fetch_object($req_nb_panneau);
   $nb_panneau = $nb_panneau->count;
-  var_dump($nb_panneau);
+  echo("Nb Panneau = ".$nb_panneau);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.sentier, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
-  $req_nb_sentier = pg_query($dbConnect, $sql);
-  $nb_sentier = pg_fetch_object($req_nb_sentier);
-  $nb_sentier = $nb_sentier->count;
-  var_dump($nb_sentier);
+  $sql = "SELECT ROUND(ST_Length(sent_geom)) AS longueur FROM bd_equipement.sentier WHERE sent_site_cen_id = '".$site."'";
+  $req_long_sentier = pg_query($dbConnect, $sql);
+  $long_sentier = pg_fetch_object($req_long_sentier);
+  $long_sentier = $long_sentier->longueur;
+  echo("<br/>Longueur Sentier = ".$long_sentier);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.autre_amenagement_communication, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
+  $sql = "SELECT COUNT(*) FROM bd_equipement.autre_amenagement_communication WHERE autr_amen_comm_site_cen_id = '".$site."'";
   $req_autreamgtcomm = pg_query($dbConnect, $sql);
   $autreamgtcomm = pg_fetch_object($req_autreamgtcomm);
   $autreamgtcomm = $autreamgtcomm->count;
-  var_dump($autreamgtcomm);
+  echo("<br/>Nb Amgt Valorisation = ".$autreamgtcomm);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.cloture, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
-  $req_nb_cloture = pg_query($dbConnect, $sql);
-  $nb_cloture = pg_fetch_object($req_nb_cloture);
-  $nb_cloture = $nb_cloture->count;
-  var_dump($nb_cloture);
+  $sql = "SELECT ROUND(ST_Length(clot_geom)) AS longueur FROM bd_equipement.cloture WHERE clot_site_cen_id = '".$site."'";
+  $req_long_cloture = pg_query($dbConnect, $sql);
+  $long_cloture = pg_fetch_object($req_long_cloture);
+  $long_cloture = $long_cloture->longueur;
+  echo("<br/>Longueur Cloture = ".$long_cloture);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.barriere, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
+  $sql = "SELECT COUNT(*) FROM bd_equipement.barriere WHERE barr_site_cen_id = '".$site."'";
   $req_nb_barriere = pg_query($dbConnect, $sql);
   $nb_barriere = pg_fetch_object($req_nb_barriere);
   $nb_barriere = $nb_barriere->count;
-  var_dump($nb_barriere);
+  echo("<br/>Nb Barrière = ".$nb_barriere);
 
-  $sql = "SELECT COUNT(*) FROM bd_equipement.autre_amenagement_zootechnie, md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
+  $sql = "SELECT COUNT(*) FROM bd_equipement.autre_amenagement_zootechnie WHERE autr_amen_zoot_site_cen_id = '".$site."'";
   $req_nb_autreamgtzoot = pg_query($dbConnect, $sql);
   $nb_autreamgtzoot = pg_fetch_object($req_nb_autreamgtzoot);
   $nb_autreamgtzoot = $nb_autreamgtzoot->count;
-  var_dump($nb_autreamgtzoot);
+  echo("<br/>Nb Amgt Gestion = ".$nb_autreamgtzoot);
 
   if ($nb_panneau != 0) {
-    echo "Check my branch";
+    $sql = "SELECT COUNT(*) FROM bd_equipement.type_panneau";
+    $req_nb_typePanneau = pg_query($dbConnect, $sql);
+    $nb_typePanneau = pg_fetch_object($req_nb_typePanneau);
+    $nb_typePanneau = $nb_typePanneau->count;
+
+    for ($i=1; $i <= $nb_typePanneau; $i++) {
+      $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$i;
+      $req_nb_panneau_type = pg_query($dbConnect, $sql);
+      $nb_panneau_type = pg_fetch_object($req_nb_panneau_type);
+      $nb_panneau_type = $nb_panneau_type->count;
+      echo("<br/>Il y a ".$nb_panneau_type." de type ".$i);
+    }
+
+    // foreach ($nb_panneau as $panneau) {
+    //   // code...
+    // }
   }
+
+  pg_close($dbConnect);
 ?>
 
 
