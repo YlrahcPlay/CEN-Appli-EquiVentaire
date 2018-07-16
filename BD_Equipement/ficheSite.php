@@ -43,7 +43,7 @@
   var_dump($nb_autreamgtzoot);
 
   if ($nb_panneau != 0) {
-    echo "OK";
+    echo "Check my branch";
   }
 ?>
 
