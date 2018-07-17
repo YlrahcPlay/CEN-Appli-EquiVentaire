@@ -1,3 +1,14 @@
+<style  type="text/Css">
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.25em;
+  }
+</style>
+
 <?php
   include("data/AccessDataBasePgConnect.php"); // Accès à la base de données
   include_once("fonction.php");
@@ -52,6 +63,7 @@
     $sql = "SELECT type_pann_libe AS libe FROM bd_equipement.type_panneau";
     $req_libe_type_pann = pg_query($dbConnect, $sql);
     $libe_type_pann = pg_fetch_all($req_libe_type_pann);
+    // var_dump($libe_type_pann);
 
     $nb_typePanneau = count($libe_type_pann);
 
@@ -62,12 +74,10 @@
       $nb_panneau_type = pg_fetch_object($req_nb_panneau_type);
       $nb_panneau_type = $nb_panneau_type->count;
 
-      array_push($tableau_pann_type_nb, array($libe_type_pann[$i-1]['libe'], $nb_panneau_type));
+      array_push($tableau_pann_type_nb, array('id' => $i, 'libe' => $libe_type_pann[$i-1]['libe'], 'nb' => $nb_panneau_type));
     };
-    var_dump($tableau_pann_type_nb);
+    // var_dump($tableau_pann_type_nb);
   }
-
-  pg_close($dbConnect);
 ?>
 <h1>Fiche Caractéristique<h1>
 <h2><?=$nom_site ?></h2>
@@ -78,33 +88,35 @@
     <h3><?=$nb_panneau ?> <?=$pann_SP?></h3>
   <?php endif;
 
-  foreach ($tableau_pann_type_nb as $pann_type_nb):
-    if ($pann_type_nb[1] != 0):
-      // $sql = "SELECT * FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$i;
-      // $req_nb_panneau_type = pg_query($dbConnect, $sql);
-      // $nb_panneau_type = pg_fetch_object($req_nb_panneau_type); ?>
+  foreach ($tableau_pann_type_nb AS $pann_type_info):
+    if ($pann_type_info['nb'] != 0):
+      $sql = "SELECT pann_date_amgt AS date_amgt, etat_comm_libe AS etat FROM bd_equipement.panneau, bd_equipement.etat_communication WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$pann_type_info['id'] ."AND etat_comm_id = pann_etat_comm_id" ;
+      $req_info_panneau = pg_query($dbConnect, $sql);
+      $res_info_panneau = pg_fetch_all($req_info_panneau);
+      // var_dump($res_info_panneau);
+      ?>
 
-      <p><?=$pann_type_nb[1] ?> de type <?=$pann_type_nb[0] ?></p>
+      <p><?=$pann_type_info['nb'] ?> de type <?=$pann_type_info['libe'] ?></p>
       <ul>
-        <li></li>
-        <li></li>
+        <table>
+          <tr>
+            <th>Mise en place</th>
+            <th>État</th>
+          </tr>
+        <?php foreach ($res_info_panneau AS $info_panneau): ?>
+          <?php $date_amgt = date('j-m-Y', strtotime($info_panneau['date_amgt'])) ?>
+              <tr>
+                <td><?=$date_amgt ?></td>
+                <td><?=strtolower($info_panneau['etat'])?></td>
+              </tr>
+        <?php endforeach; ?>
+        </table>
       </ul>
     <?php
     endif;
   endforeach;
 ?>
 
-
-<?php
-  $obj = (object) array('Type Panneau' => 'Accueil');
-  var_dump($obj);
-  var_dump(isset($obj->{'1'})); // affiche 'bool(true)' depuis PHP 7.2.0; 'bool(false)' auparavant
-  var_dump(key($obj)); // affiche 'string(1) "1"' depuis PHP 7.2.0; 'int(1)' auparavant
-?>
-<?php
-  $obj = (object) 'ciao';
-  echo $obj->scalar;  // Affiche : 'ciao'
-?>
 
 
 
@@ -124,6 +136,8 @@
 ?> -->
 
 <?php
+  pg_close($dbConnect);
+
   function Singulier_Pluriels($nb, $mot) {
     if ($nb != 1) {
       if($mot == 'panneau') {
