@@ -1,18 +1,16 @@
 <?php
   include("data/AccessDataBasePgConnect.php"); // Accès à la base de données
+  include_once("fonction.php");
   // require_once('html2pdf.class.php');
 
   // $site = $_POST['site'];
   $site = $_GET['site'];
   // var_dump($site);
+
   $sql = "SELECT commune || ' - ' || ".'"Nom_Site"'." AS site FROM md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
   $req_nom_site = pg_query($dbConnect, $sql);
   $nom_site = pg_fetch_object($req_nom_site);
   $nom_site = $nom_site->site;
-
-  $content = "<h1>Fiche Caractéristique<h1>";
-  $content .= "<br/><h2>".$nom_site."</h2>";
-  $content .= "<br/>c'est :";
 
   $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."'";
   $req_nb_panneau = pg_query($dbConnect, $sql);
@@ -51,29 +49,59 @@
   echo("<br/>Nb Amgt Gestion = ".$nb_autreamgtzoot);
 
   if ($nb_panneau != 0) {
-    $content_panneau = $nb_panneau ."Panneau";
+    if ($nb_panneau != 0) {
+      $sql = "SELECT type_pann_libe AS libe FROM bd_equipement.type_panneau";
+      $req_libe_type_pann = pg_query($dbConnect, $sql);
+      $libe_type_pann = pg_fetch_all($req_libe_type_pann);
+      var_dump($libe_type_pann);
+    };
 
     $sql = "SELECT COUNT(*) FROM bd_equipement.type_panneau";
     $req_nb_typePanneau = pg_query($dbConnect, $sql);
     $nb_typePanneau = pg_fetch_object($req_nb_typePanneau);
     $nb_typePanneau = $nb_typePanneau->count;
 
+    $tableau_pann_type = array();
     for ($i=1; $i <= $nb_typePanneau; $i++) {
       $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$i;
       $req_nb_panneau_type = pg_query($dbConnect, $sql);
       $nb_panneau_type = pg_fetch_object($req_nb_panneau_type);
       $nb_panneau_type = $nb_panneau_type->count;
-      echo("<br/>Il y a ".$nb_panneau_type." de type ".$i);
-    }
+      $tableau_pann_type = array_push($i => $nb_panneau_type);
 
-    $content .= $content_panneau;
+      if ($nb_panneau_type != 0) {
+        $content_panneau .= "<br/>".$nb_panneau_type;
+        if ($nb_panneau_type == 1) {
+          $content_panneau .= " panneau";
+        }
+        else {
+          $content_panneau .= "panneaux";
+        }
+        $content_panneau .= " de type ". $libe_type_pann[$i-1]['libe'];
+      }
+    };
+
+    // $content .= $content_panneau;
   }
 
   pg_close($dbConnect);
 
-  echo($content);
+  // echo($content);
 ?>
+<h1>Fiche Caractéristique<h1>
+<h2><?=$nom_site ?></h2>
 
+<?php
+  if ($nb_panneau != 0):
+    if ($nb_panneau == 1): ?>
+      $content_panneau = "<h3>" .$nb_panneau ." Panneau </h3>";
+    <?php
+    else: ?>
+      <h3><?=$nb_panneau ?> Panneaux </h3>
+    <?php
+    endif;
+  endif;
+?>
 
 
 <!-- <?php
