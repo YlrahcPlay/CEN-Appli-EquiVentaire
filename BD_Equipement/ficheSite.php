@@ -49,59 +49,63 @@
   echo("<br/>Nb Amgt Gestion = ".$nb_autreamgtzoot);
 
   if ($nb_panneau != 0) {
-    if ($nb_panneau != 0) {
-      $sql = "SELECT type_pann_libe AS libe FROM bd_equipement.type_panneau";
-      $req_libe_type_pann = pg_query($dbConnect, $sql);
-      $libe_type_pann = pg_fetch_all($req_libe_type_pann);
-      var_dump($libe_type_pann);
-    };
+    $sql = "SELECT type_pann_libe AS libe FROM bd_equipement.type_panneau";
+    $req_libe_type_pann = pg_query($dbConnect, $sql);
+    $libe_type_pann = pg_fetch_all($req_libe_type_pann);
 
-    $sql = "SELECT COUNT(*) FROM bd_equipement.type_panneau";
-    $req_nb_typePanneau = pg_query($dbConnect, $sql);
-    $nb_typePanneau = pg_fetch_object($req_nb_typePanneau);
-    $nb_typePanneau = $nb_typePanneau->count;
+    $nb_typePanneau = count($libe_type_pann);
 
-    $tableau_pann_type = array();
+    $tableau_pann_type_nb = array();
     for ($i=1; $i <= $nb_typePanneau; $i++) {
       $sql = "SELECT COUNT(*) FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$i;
       $req_nb_panneau_type = pg_query($dbConnect, $sql);
       $nb_panneau_type = pg_fetch_object($req_nb_panneau_type);
       $nb_panneau_type = $nb_panneau_type->count;
-      $tableau_pann_type = array_push($i => $nb_panneau_type);
 
-      if ($nb_panneau_type != 0) {
-        $content_panneau .= "<br/>".$nb_panneau_type;
-        if ($nb_panneau_type == 1) {
-          $content_panneau .= " panneau";
-        }
-        else {
-          $content_panneau .= "panneaux";
-        }
-        $content_panneau .= " de type ". $libe_type_pann[$i-1]['libe'];
-      }
+      array_push($tableau_pann_type_nb, array($libe_type_pann[$i-1]['libe'], $nb_panneau_type));
     };
-
-    // $content .= $content_panneau;
+    var_dump($tableau_pann_type_nb);
   }
 
   pg_close($dbConnect);
-
-  // echo($content);
 ?>
 <h1>Fiche Caractéristique<h1>
 <h2><?=$nom_site ?></h2>
 
 <?php
   if ($nb_panneau != 0):
-    if ($nb_panneau == 1): ?>
-      $content_panneau = "<h3>" .$nb_panneau ." Panneau </h3>";
-    <?php
-    else: ?>
-      <h3><?=$nb_panneau ?> Panneaux </h3>
+    $pann_SP = ucfirst(Singulier_Pluriels($nb_panneau, 'panneau')); ?>
+    <h3><?=$nb_panneau ?> <?=$pann_SP?></h3>
+  <?php endif;
+
+  foreach ($tableau_pann_type_nb as $pann_type_nb):
+    if ($pann_type_nb[1] != 0):
+      // $sql = "SELECT * FROM bd_equipement.panneau WHERE pann_site_cen_id = '".$site."' AND pann_type_pann_id = ".$i;
+      // $req_nb_panneau_type = pg_query($dbConnect, $sql);
+      // $nb_panneau_type = pg_fetch_object($req_nb_panneau_type); ?>
+
+      <p><?=$pann_type_nb[1] ?> de type <?=$pann_type_nb[0] ?></p>
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
     <?php
     endif;
-  endif;
+  endforeach;
 ?>
+
+
+<?php
+  $obj = (object) array('Type Panneau' => 'Accueil');
+  var_dump($obj);
+  var_dump(isset($obj->{'1'})); // affiche 'bool(true)' depuis PHP 7.2.0; 'bool(false)' auparavant
+  var_dump(key($obj)); // affiche 'string(1) "1"' depuis PHP 7.2.0; 'int(1)' auparavant
+?>
+<?php
+  $obj = (object) 'ciao';
+  echo $obj->scalar;  // Affiche : 'ciao'
+?>
+
 
 
 <!-- <?php
@@ -118,3 +122,15 @@
     exit;
   }
 ?> -->
+
+<?php
+  function Singulier_Pluriels($nb, $mot) {
+    if ($nb != 1) {
+      if($mot == 'panneau') {
+        $mot = 'panneaux';
+      };
+    };
+
+    return $mot;
+  };
+?>
