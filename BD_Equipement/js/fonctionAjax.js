@@ -88,7 +88,7 @@ function fichePanneau(clef, type, precision, date_amgt, etat, commentaire) {
           , precision:precision
           , date_amgt:date_amgt
           , etat:etat
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
     async : false, // true ou false
@@ -117,7 +117,7 @@ function ficheSentier(clef, type_sent, type_chem, date_amgt, etat, pmr, difficul
           , etat:etat
           , pmr:pmr
           , difficulte:difficulte
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef
           , longueur:longueur}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
@@ -143,7 +143,7 @@ $.ajax({
     method : "GET", // (GET, POST, PUT)
     data : {type_amenagement:type
           , date_amgt:date_amgt
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
     async : false, // true ou false
@@ -172,7 +172,7 @@ function ficheCloture(clef, type_mobilite, type_fils, type_poteau, date_amgt, pa
           , date_amgt:date_amgt
           , partiel:partiel
           , etat:etat
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef
           , longueur:longueur}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
@@ -202,7 +202,7 @@ function ficheBarriere(clef, type_mobilite, type_structure, dimension, date_amgt
           , date_amgt:date_amgt
           , cadenasPerm:cadenasPerm
           , etat:etat
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
     async : false, // true ou false
@@ -227,7 +227,7 @@ $.ajax({
     method : "GET", // (GET, POST, PUT)
     data : {type_amenagement:type
           , date_amgt:date_amgt
-          , commentaire:decodeURI(commentaire)
+          , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
     async : false, // true ou false
