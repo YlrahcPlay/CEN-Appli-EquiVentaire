@@ -17,7 +17,7 @@
 ?>
 <div class="filtre">
   <!-- Séléction du site -->
-  <select id="site" onclick="affichePdf(), majsite(), drawing(), majcategorie()">
+  <select id="site" onclick="majsite(), drawing(), majcategorie()">
     <option value="tous" selected>Choisir un Site</option>
     <?php foreach ($resultat_sites as $site): ?>
       <option value="<?=$site->code_site ?>"><?=$site->commune ?> - <?=$site->nom_site ?></option>
