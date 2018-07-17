@@ -662,6 +662,7 @@ function recAttributs(url,destination,type, clefModif, tableLiaison) {
     data = {objet:type
           , type:$('#type_amenagement').val()
           , date_amgt:$('#date_amgt').val()
+          , etat:$('#etat').val()
           , commentaire:$('#commentaire').val()
           , geom:$('#json').text()
           , clefModif:clefModif};
@@ -679,7 +680,8 @@ function recAttributs(url,destination,type, clefModif, tableLiaison) {
          , type_fils:$('#type_fils').val()
          , type_poteau:$('#type_poteau').val()
          , date_amgt:$('#date_amgt').val()
-         , partiel:partiel, etat:$('#etat').val()
+         , partiel:partiel
+         , etat:$('#etat').val()
          , commentaire:$('#commentaire').val()
          , geom:$('#json').text()
          , clefModif:clefModif} ;
@@ -697,7 +699,8 @@ function recAttributs(url,destination,type, clefModif, tableLiaison) {
           , type_structure:$('#type_structure').val()
           , dimension:$('#dimension').val()
           , date_amgt:$('#date_amgt').val()
-          , cadenasPerm:cadPerm, etat:$('#etat').val()
+          , cadenasPerm:cadPerm
+          , etat:$('#etat').val()
           , commentaire:$('#commentaire').val()
           , geom:$('#json').text()
           , clefModif:clefModif} ;
@@ -706,6 +709,7 @@ function recAttributs(url,destination,type, clefModif, tableLiaison) {
     data = {objet:type
           , type:$('#type_amenagement').val()
           , date_amgt:$('#date_amgt').val()
+          , etat:$('#etat').val()
           , commentaire:$('#commentaire').val()
           , geom:$('#json').text()
           , clefModif:clefModif};
