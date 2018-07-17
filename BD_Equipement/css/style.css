@@ -272,6 +272,16 @@ aside .filtre select {
   width: 35vw;
 }
 
+aside #pdf {
+  display: none;
+  position: absolute;
+  margin-left: 1%;
+}
+
+aside #pdf img {
+  width: 30px;
+}
+
 /*//////////////////// Résumé ////////////////////*/
 
 footer {
