@@ -91,7 +91,6 @@
     </main>
 
     <aside> <!-- Ajout des filtres -->
-      <div id="pdf"><img src="img/pdf.png" alt="Générer un pdf" onclick="generePdf()"></div>
       <?php include("filtre.php") ?>
     </aside>
 

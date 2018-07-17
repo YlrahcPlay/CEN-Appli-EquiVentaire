@@ -768,29 +768,3 @@ function supprAttibut(objet, id) {
     });
   };
 };
-
-function affichePdf() {
-  site = $('#site').val();
-
-  if (site == 'tous' && $('#pdf').css('display') != 'none') {
-    affiche_masque("#pdf");
-  }
-  else if (site != 'tous' && $('#pdf').css('display') == 'none') {
-    affiche_masque("#pdf");
-  };
-};
-
-
-function generePdf() {
-    site = $('#site').val();
-
-  $.ajax({
-    url : "ficheSite.php", // Où envoyer la requête
-    method : "POST", // (GET, POST, PUT)
-    data : {site:site}, // Argument(s) à envoyer
-    // dataType : "", // Type de la réponse. (xml, json, script, html, jsonp, text)
-    async : false, // true ou false
-    error : function(request, error) { alert("Erreur : responseText: "+request.responseText);}, // Action en cas d'echec de la requête
-    success : function(data) {} // Action en cas de réussite de la requête
-  });
-};
