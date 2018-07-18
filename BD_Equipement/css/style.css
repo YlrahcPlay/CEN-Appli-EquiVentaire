@@ -276,6 +276,7 @@ aside #pdf {
   display: none;
   position: absolute;
   margin-left: 1%;
+  cursor: pointer;
 }
 
 aside #pdf img {
