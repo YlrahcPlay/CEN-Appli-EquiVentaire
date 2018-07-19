@@ -1,22 +1,44 @@
-<style  type="text/Css">
+<?php ob_start(); ?>
+<style>
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    margin: 0px;
+  }
+
+  .souligne {
+    margin-bottom: 5px;
+    text-decoration: underline;
+  }
+
+  .nb {
+    margin-left: 25px
+  }
+
   table, th, td {
-    border: 1px solid black;
+    margin-left: 25px;
     border-collapse: collapse;
+    border: 1px solid black;
     text-align: center;
   }
 
   th, td {
-    padding: 0.25em;
+    padding: 5px;
+  }
+
+  .total {
+    margin: 10px 0;
+    font-style: italic;
   }
 </style>
-
 <?php
   include("data/AccessDataBasePgConnect.php"); // Accès à la base de données
   include_once("fonction.php");
 
-  $site = $_POST['site'];
-  // $site = $_GET['site'];
-  // var_dump($site);
+  $site = $_GET['site'];
+
 
   $sql = "SELECT commune || ' - ' || ".'"Nom_Site"'." AS site FROM md.site_cenhn WHERE ".'"ID"'." = '".$site."'";
   $req_nom_site = pg_query($dbConnect, $sql);
@@ -102,15 +124,50 @@
     $res_info_amgt_gest = pg_fetch_all($req_info_amgt_gest);
   };
 ?>
-<?php ob_start(); ?>
 <page backtop="5%" backbottom="5%" backleft="5%" backright="5%">
-<h1>Fiche Caractéristique<h1>
+<h1>Fiche Caractéristique</h1>
 <h2><?=$nom_site ?></h2>
 
+<bookmark title="Résumé" level="0" ></bookmark>
+<div class="resume">
+  <p class="souligne">En résumé sur ce site:</p>
+    <?php if ($nb_panneau != 0): ?>
+      <?php $pann_SP = ucfirst(Singulier_Pluriels($nb_panneau, 'panneau')); ?>
+      <p class="nb">• <?=$nb_panneau ?> <?=$pann_SP?></p>
+    <?php endif; ?>
+
+    <?php if ($nb_sentier != 0): ?>
+      <?php $sent_SP = ucfirst(Singulier_Pluriels($nb_sentier, 'sentier')); ?>
+      <p class="nb">• <?=$long_sentier->longueur ?> mètre de <?=$sent_SP?></p>
+    <?php endif; ?>
+
+    <?php if ($nb_amgtValo != 0): ?>
+      <?php $amgtValo_SP = ucfirst(Singulier_Pluriels($nb_amgtValo, 'aménagement')); ?>
+      <p class="nb">• <?=$nb_amgtValo ?> <?=$amgtValo_SP?></p>
+    <?php endif; ?>
+
+    <?php if ($nb_cloture != 0): ?>
+      <?php $clot_SP = ucfirst(Singulier_Pluriels($nb_cloture, 'clôture')); ?>
+      <p class="nb">• <?=$long_cloture_cen->longueur?> mètre de <?=$clot_SP?></p>
+    <?php endif; ?>
+
+    <?php if ($nb_barriere != 0): ?>
+      <?php $barriere_SP = ucfirst(Singulier_Pluriels($nb_barriere, 'barrière')); ?>
+      <p class="nb">• <?=$nb_barriere ?> <?=$barriere_SP?></p>
+    <?php endif; ?>
+
+    <?php if ($nb_amgtGest != 0): ?>
+      <?php $amgtGest_SP = ucfirst(Singulier_Pluriels($nb_amgtGest, 'aménagement')); ?>
+      <p class="nb">• <?=$nb_amgtGest ?> <?=$amgtGest_SP?></p>
+    <?php endif; ?>
+</div>
+
+<bookmark title="Equipements" level="0" ></bookmark>
+<bookmark title="Panneau" level="1" ></bookmark>
+<div class="panneau">
 <?php if ($nb_panneau != 0): ?>
   <?php $pann_SP = ucfirst(Singulier_Pluriels($nb_panneau, 'panneau')); ?>
   <h3><?=$nb_panneau ?> <?=$pann_SP?></h3>
-  <ul>
     <table>
       <tr>
         <th>Mise en place</th>
@@ -126,147 +183,152 @@
           </tr>
     <?php endforeach; ?>
     </table>
-  </ul>
 <?php endif; ?>
+</div>
 
+<bookmark title="Sentier" level="1" ></bookmark>
+<div class="sentier">
 <?php if ($nb_sentier != 0): ?>
   <?php $sent_SP = ucfirst(Singulier_Pluriels($nb_sentier, 'sentier')); ?>
-    <h3><?=$long_sentier->longueur ?> mètre de <?=$sent_SP?></h3>
-      <ul>
-        <table>
-          <tr>
-            <th>Mise en place</th>
-            <th>État</th>
-            <th>Gestionnaire</th>
-            <th>Cheminement</th>
-            <th>Accès PMR</th>
-            <th>Difficulté</th>
-            <th>Longueur</th>
-          </tr>
-        <?php $sent_cen = 0 ?>
-        <?php foreach ($res_sentier_info AS $sentier_info): ?>
-          <?php if ($sentier_info['gest'] == 'CEN') { $sent_cen .= 1; } ?>
-          <?php $date_amgt = date('j-m-Y', strtotime($sentier_info['date_amgt'])) ?>
-              <tr>
-                <td><?=$date_amgt ?></td>
-                <td><?=$sentier_info['etat']?></td>
-                <td><?=$sentier_info['gest']?></td>
-                <td><?=$sentier_info['chem']?></td>
-                <td>
-                  <?php if ($sentier_info['pmr'] == 't'): ?>
-                    Oui
-                  <?php elseif ($sentier_info['pmr'] == 'f'): ?>
-                    Non
-                  <?php endif; ?>
-                </td>
-                <td><?=$sentier_info['diff']?></td>
-                <td><?=$sentier_info['longueur']?> m</td>
-              </tr>
-        <?php endforeach; ?>
-        </table>
-        <?php if ($sent_cen != 0): ?>
-          <p>Longueur total des sentiers géré par le CEN : <?=$long_sentier_cen->longueur?> mètre</p>
+  <h3><?=$long_sentier->longueur ?> mètre de <?=$sent_SP?></h3>
+  <table>
+    <tr>
+      <th>Mise en place</th>
+      <th>État</th>
+      <th>Gestionnaire</th>
+      <th>Cheminement</th>
+      <th>Accès PMR</th>
+      <th>Difficulté</th>
+      <th>Longueur</th>
+    </tr>
+  <?php $sent_cen = 0 ?>
+  <?php foreach ($res_sentier_info AS $sentier_info): ?>
+    <?php if ($sentier_info['gest'] == 'CEN') { $sent_cen .= 1; } ?>
+    <?php $date_amgt = date('j-m-Y', strtotime($sentier_info['date_amgt'])) ?>
+    <tr>
+      <td><?=$date_amgt ?></td>
+      <td><?=$sentier_info['etat']?></td>
+      <td><?=$sentier_info['gest']?></td>
+      <td><?=$sentier_info['chem']?></td>
+      <td>
+        <?php if ($sentier_info['pmr'] == 't'): ?>
+          Oui
+        <?php elseif ($sentier_info['pmr'] == 'f'): ?>
+          Non
         <?php endif; ?>
-      </ul>
+      </td>
+      <td><?=$sentier_info['diff']?></td>
+      <td><?=$sentier_info['longueur']?> m</td>
+    </tr>
+  <?php endforeach; ?>
+  </table>
+  <?php if ($sent_cen != 0): ?>
+    <p class="total">Longueur total des sentiers géré par le CEN : <?=$long_sentier_cen->longueur?> mètre.</p>
+  <?php endif; ?>
 <?php endif; ?>
+</div>
 
+<bookmark title="Aménagement de Valorisation" level="1" ></bookmark>
+<div class="amgtValo">
 <?php if ($nb_amgtValo != 0): ?>
   <?php $amgtValo_SP = ucfirst(Singulier_Pluriels($nb_amgtValo, 'aménagement')); ?>
   <h3><?=$nb_amgtValo ?> <?=$amgtValo_SP?></h3>
-  <ul>
-    <table>
-      <tr>
-        <th>Mise en place</th>
-        <th>État</th>
-        <th>Type</th>
-      </tr>
-    <?php foreach ($res_info_amgt_valo AS $amgt_valo_info): ?>
-      <?php $date_amgt = date('j-m-Y', strtotime($amgt_valo_info['date_amgt'])) ?>
-          <tr>
-            <td><?=$date_amgt ?></td>
-            <td><?=$amgt_valo_info['etat']?></td>
-            <td><?=$amgt_valo_info['libe']?></td>
-          </tr>
-    <?php endforeach; ?>
-    </table>
-  </ul>
+  <table>
+    <tr>
+      <th>Mise en place</th>
+      <th>État</th>
+      <th>Type</th>
+    </tr>
+  <?php foreach ($res_info_amgt_valo AS $amgt_valo_info): ?>
+  <?php $date_amgt = date('j-m-Y', strtotime($amgt_valo_info['date_amgt'])) ?>
+    <tr>
+      <td><?=$date_amgt ?></td>
+      <td><?=$amgt_valo_info['etat']?></td>
+      <td><?=$amgt_valo_info['libe']?></td>
+    </tr>
+  <?php endforeach; ?>
+  </table>
 <?php endif; ?>
+</div>
 
+<bookmark title="Clôture" level="1" ></bookmark>
+<div class="cloture">
 <?php if ($nb_cloture != 0): ?>
   <?php $clot_SP = ucfirst(Singulier_Pluriels($nb_cloture, 'clôture')); ?>
     <h3><?=$long_cloture_cen->longueur?> mètre de <?=$clot_SP?></h3>
-      <ul>
-        <table>
-          <tr>
-            <th>Mise en place</th>
-            <th>État</th>
-            <th>Mobilité</th>
-            <th>Fils</th>
-            <th>Poteau</th>
-            <th>Longueur</th>
-          </tr>
-        <?php foreach ($res_cloture_info AS $cloture_info): ?>
-          <?php $date_amgt = date('j-m-Y', strtotime($cloture_info['date_amgt'])) ?>
-              <tr>
-                <td><?=$date_amgt ?></td>
-                <td><?=$cloture_info['etat']?></td>
-                <td><?=$cloture_info['mobi']?></td>
-                <td><?=$cloture_info['fils']?></td>
-                <td><?=$cloture_info['pote']?></td>
-                <td><?=$cloture_info['longueur']?> m</td>
-              </tr>
-        <?php endforeach; ?>
-        </table>
-      </ul>
+    <table>
+      <tr>
+        <th>Mise en place</th>
+        <th>État</th>
+        <th>Mobilité</th>
+        <th>Fils</th>
+        <th>Poteau</th>
+        <th>Longueur</th>
+      </tr>
+    <?php foreach ($res_cloture_info AS $cloture_info): ?>
+    <?php $date_amgt = date('j-m-Y', strtotime($cloture_info['date_amgt'])) ?>
+      <tr>
+        <td><?=$date_amgt ?></td>
+        <td><?=$cloture_info['etat']?></td>
+        <td><?=$cloture_info['mobi']?></td>
+        <td><?=$cloture_info['fils']?></td>
+        <td><?=$cloture_info['pote']?></td>
+        <td><?=$cloture_info['longueur']?> m</td>
+      </tr>
+    <?php endforeach; ?>
+    </table>
 <?php endif; ?>
+</div>
 
+<bookmark title="Barrière" level="1" ></bookmark>
+<div class="barriere">
 <?php if ($nb_barriere != 0): ?>
   <?php $barriere_SP = ucfirst(Singulier_Pluriels($nb_barriere, 'barrière')); ?>
   <h3><?=$nb_barriere ?> <?=$barriere_SP?></h3>
-  <ul>
-    <table>
-      <tr>
-        <th>Mise en place</th>
-        <th>État</th>
-        <th>Dimension</th>
-        <th>Mobilité</th>
-        <th>Structure</th>
-      </tr>
-    <?php foreach ($res_info_barriere AS $info_barriere): ?>
-      <?php $date_amgt = date('j-m-Y', strtotime($info_barriere['date_amgt'])) ?>
-          <tr>
-            <td><?=$date_amgt ?></td>
-            <td><?=$info_barriere['etat']?></td>
-            <td><?=$info_barriere['dime']?></td>
-            <td><?=$info_barriere['mobi']?></td>
-            <td><?=$info_barriere['stru']?></td>
-          </tr>
-    <?php endforeach; ?>
-    </table>
-  </ul>
+  <table>
+    <tr>
+      <th>Mise en place</th>
+      <th>État</th>
+      <th>Dimension</th>
+      <th>Mobilité</th>
+      <th>Structure</th>
+    </tr>
+  <?php foreach ($res_info_barriere AS $info_barriere): ?>
+  <?php $date_amgt = date('j-m-Y', strtotime($info_barriere['date_amgt'])) ?>
+    <tr>
+      <td><?=$date_amgt ?></td>
+      <td><?=$info_barriere['etat']?></td>
+      <td><?=$info_barriere['dime']?></td>
+      <td><?=$info_barriere['mobi']?></td>
+      <td><?=$info_barriere['stru']?></td>
+    </tr>
+  <?php endforeach; ?>
+  </table>
 <?php endif; ?>
+</div>
 
+<bookmark title="Aménagement de Gestion" level="1" ></bookmark>
+<div class="amgtGest">
 <?php if ($nb_amgtGest != 0): ?>
   <?php $amgtGest_SP = ucfirst(Singulier_Pluriels($nb_amgtGest, 'aménagement')); ?>
   <h3><?=$nb_amgtGest ?> <?=$amgtGest_SP?></h3>
-  <ul>
-    <table>
-      <tr>
-        <th>Mise en place</th>
-        <th>État</th>
-        <th>Type</th>
-      </tr>
-    <?php foreach ($res_info_amgt_gest AS $info_amgt_gest): ?>
-      <?php $date_amgt = date('j-m-Y', strtotime($info_amgt_gest['date_amgt'])) ?>
-          <tr>
-            <td><?=$date_amgt ?></td>
-            <td><?=$info_amgt_gest['etat']?></td>
-            <td><?=$info_amgt_gest['libe']?></td>
-          </tr>
-    <?php endforeach; ?>
-    </table>
-  </ul>
+  <table>
+    <tr>
+      <th>Mise en place</th>
+      <th>État</th>
+      <th>Type</th>
+    </tr>
+  <?php foreach ($res_info_amgt_gest AS $info_amgt_gest): ?>
+  <?php $date_amgt = date('j-m-Y', strtotime($info_amgt_gest['date_amgt'])) ?>
+    <tr>
+      <td><?=$date_amgt ?></td>
+      <td><?=$info_amgt_gest['etat']?></td>
+      <td><?=$info_amgt_gest['libe']?></td>
+    </tr>
+  <?php endforeach; ?>
+  </table>
 <?php endif; ?>
+</div>
 </page>
 
 <?php
@@ -289,17 +351,18 @@
 <?php
   $content = ob_get_clean();
 
-  require_once('html2pdf.class.php');
+  require_once('js/html2pdf/html2pdf.class.php');
   try
   {
     $html2pdf = new HTML2PDF('P', 'A4', 'fr');
     // $html2pdf->setModeDebug();
     $html2pdf->setDefaultFont('Arial');
-    $html2pdf->writeHTML($content);
+    $html2pdf->writeHTML($content, false);
+    // $html2pdf->writeHTML($content, true);
     $html2pdf->Output('/doc/ficheSite/'.$site.'.pdf');
   }
   catch(HTML2PDF_exception $e) {
-  echo $e;
+    echo $e;
   exit;
   }
 ?>

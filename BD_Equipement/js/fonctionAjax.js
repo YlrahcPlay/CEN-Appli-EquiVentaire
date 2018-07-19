@@ -782,18 +782,17 @@ function affichePdf() {
 
 
 function generePdf() {
-  console.log("J'ai cliqué !!");
-
   site = $('#site').val();
-  console.log(site);
+  url_ficheSite = 'ficheSite.php'+'?site='+site;
+  window.open(url_ficheSite);
 
-  $.ajax({
-    url : "ficheSite.php", // Où envoyer la requête
-    method : "POST", // (GET, POST, PUT)
-    data : {site:site}, // Argument(s) à envoyer
-    // dataType : "", // Type de la réponse. (xml, json, script, html, jsonp, text)
-    async : false, // true ou false
-    error : function(request, error) { alert("Erreur : responseText: "+request.responseText);}, // Action en cas d'echec de la requête
-    success : function(data) {alert("Ca a marché...")} // Action en cas de réussite de la requête
-  });
+  // $.ajax({
+  //   url : "ficheSite.php", // Où envoyer la requête
+  //   method : "GET", // (GET, POST, PUT)
+  //   data : {site:site}, // Argument(s) à envoyer
+  //   // dataType : "script", // Type de la réponse. (xml, json, script, html, jsonp, text)
+  //   async : false, // true ou false
+  //   error : function(request, error) { alert("Erreur : responseText: "+request.responseText);}, // Action en cas d'echec de la requête
+  //   success : function(data) {} // Action en cas de réussite de la requête
+  // });
 };
