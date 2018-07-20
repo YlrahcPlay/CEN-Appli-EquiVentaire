@@ -13,7 +13,7 @@
         , row_to_json((
           SELECT l FROM (SELECT ".'"ID"'." AS code_site, ".'"Nom_Site"'." AS nom_site, commune) AS l)) AS properties
           , ST_AsGeoJSON(ST_Transform(geom, 4326), 6)::json AS geometry
-        FROM md.site_cenhn
+        FROM md.site_cenhn WHERE categorie = 1
       ) AS f
     ) AS fc";
 

@@ -308,7 +308,7 @@ function autre_amenagement_zootechnie_Data() {
 //// Affichage des sites en fonction des filtres ////
 function majsite(){
   //// Style à appliquer ////
-  var style_site = {
+  var style_site_polygone = {
     color: "#00ff00" // couleur du contour
     , weight: 3 // épaisseur du contour
     , opacity: 1 // opacité du contour
@@ -316,7 +316,7 @@ function majsite(){
   };
 
   //// Efface les sites, si non appelé ////
-  if(typeof(polygone_site) != 'undefined'){
+  if(typeof(site_localisation) != 'undefined'){
     sitesCEN.clearLayers();
   };
 
@@ -333,14 +333,14 @@ function majsite(){
     async    : false,
     error    : function(request, error) { alert("Erreur : responseText: "+request.responseText);},
     success  : function(data) {
-        polygone_site = data;
+        site_localisation = data;
         }
     });
 
   // Intégration des données à la carte
-  sitesCEN = L.geoJSON(polygone_site, {
+  sitesCEN = L.geoJSON(site_localisation, {
     style: function(polygone) {
-      return style_site
+      return style_site_polygone
     }
     ,
     // // Info-Bulle

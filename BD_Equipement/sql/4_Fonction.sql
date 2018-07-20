@@ -12,7 +12,7 @@ DECLARE
 
 BEGIN
 
-	SELECT DISTINCT ST_CoveredBy(this_geom, geom) INTO in_site
+	SELECT DISTINCT ST_CoveredBy(this_geom, ST_Buffer(geom, 100)) INTO in_site
 		FROM md.site_cenhn
 		WHERE ST_CoveredBy(this_geom, geom) ;
 
@@ -23,9 +23,9 @@ BEGIN
 		error := -11;
 
 		IF (objet = 'sentier' OR objet = 'cloture') THEN
-			SELECT ST_Intersects(this_geom, geom) INTO in_out_site
+			SELECT ST_Intersects(this_geom, ST_Buffer(geom, 100)) INTO in_out_site
 				FROM md.site_cenhn
-				WHERE ST_Intersects(this_geom, geom) ;
+				WHERE ST_Intersects(this_geom, ST_Buffer(geom, 100)) AND categorie = 1;
 
 			IF (in_out_site = TRUE) THEN
 				error := -12;
@@ -37,10 +37,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Panneau
+-- Panneau Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.panneau(modif BOOLEAN, this_geom GEOMETRY, id INT, type INT, precis VARCHAR, date_amgt DATE, etat INT, commentaire TEXT) RETURNS VOID AS $$
 DECLARE
-	id_panneau 	INTEGER;
 	time_record TIMESTAMP;
 	nb_fichier 	INTEGER;
 
@@ -60,21 +59,31 @@ BEGIN
 		INSERT INTO bd_equipement.panneau(pann_date_enre, pann_type_pann_id, pann_prec, pann_date_amgt, pann_etat_comm_id, pann_comm, pann_geom)
 		VALUES(time_record, type, precis, date_amgt, etat, commentaire, this_geom);
 
-		SELECT pann_id INTO id_panneau FROM bd_equipement.panneau ORDER BY pann_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.panneau
-		SET pann_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, pann_geom) AND pann_id = id_panneau;
-
 	END IF;
 END;
 $$ LANGUAGE plpgsql;
+-- Panneau Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_panneau() RETURNS TRIGGER AS $$
+DECLARE
+	id_panneau 	INTEGER;
+
+BEGIN
+
+	SELECT pann_id INTO id_panneau FROM bd_equipement.panneau ORDER BY pann_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.panneau
+	SET pann_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), pann_geom) AND pann_id = id_panneau AND categorie = 1;
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_panneau AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_panneau();
 
 
--- Sentier
+-- Sentier Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.sentier(modif BOOLEAN, this_geom GEOMETRY, id INT, type_sentier INT, type_cheminement INT, date_amgt DATE, etat INT, pmr BOOLEAN, difficulte INT, commentaire TEXT) RETURNS VOID AS $$
 DECLARE
-	id_sentier	INTEGER;
 	time_record	TIMESTAMP;
 	nb_fichier	INTEGER;
 
@@ -96,21 +105,31 @@ BEGIN
 		INSERT INTO bd_equipement.sentier(sent_date_enre, sent_type_sent_id, sent_type_chem_id, sent_date_amgt, sent_etat_comm_id, sent_acces_pmr, sent_diff_id, sent_comm, sent_geom)
 		VALUES(time_record, type_sentier, type_cheminement, date_amgt, etat, pmr, difficulte, commentaire, this_geom);
 
-		SELECT sent_id INTO id_sentier FROM bd_equipement.sentier ORDER BY sent_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.sentier
-		SET sent_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, sent_geom) AND sent_id = id_sentier;
-
 	END IF;
 END;
 $$ LANGUAGE plpgsql;
+-- Sentier Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_sentier() RETURNS TRIGGER AS $$
+DECLARE
+	id_sentier	INTEGER;
+
+BEGIN
+
+	SELECT sent_id INTO id_sentier FROM bd_equipement.sentier ORDER BY sent_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.sentier
+	SET sent_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), sent_geom) AND sent_id = id_sentier AND categorie = 1;
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_sentier AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_sentier();
 
 
--- Autre Aménagement de Communication
+-- Autre Aménagement de Valorisation Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.autre_amenagement_communication(modif BOOLEAN, this_geom GEOMETRY, id INT, type INT, date_amgt DATE, etat INT, commentaire TEXT) RETURNS VOID AS $$
 DECLARE
-	id_autr_amen_comm	INTEGER;
 	time_record			TIMESTAMP;
 
 BEGIN
@@ -128,21 +147,31 @@ BEGIN
 		INSERT INTO bd_equipement.autre_amenagement_communication(autr_amen_comm_date_enre, autr_amen_comm_type_autr_amen_comm_id, autr_amen_comm_date_amgt, autr_amen_comm_etat_comm_id, autr_amen_comm_comm, autr_amen_comm_geom)
 		VALUES(time_record, type, date_amgt, etat, commentaire, this_geom);
 
-		SELECT autr_amen_comm_id INTO id_autr_amen_comm FROM bd_equipement.autre_amenagement_communication ORDER BY autr_amen_comm_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.autre_amenagement_communication
-		SET autr_amen_comm_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, autr_amen_comm_geom) AND autr_amen_comm_id = id_autr_amen_comm;
-
 	END IF;
 END;
 $$ LANGUAGE plpgsql;
+-- Autre Aménagement de Valorisation Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_autre_amenagement_communication() RETURNS TRIGGER AS $$
+DECLARE
+	id_autr_amen_comm	INTEGER;
+
+BEGIN
+
+	SELECT autr_amen_comm_id INTO id_autr_amen_comm FROM bd_equipement.autre_amenagement_communication ORDER BY autr_amen_comm_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.autre_amenagement_communication
+	SET autr_amen_comm_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), autr_amen_comm_geom) AND autr_amen_comm_id = id_autr_amen_comm AND categorie = 1;
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_autre_amenagement_communication AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_autre_amenagement_communication();
 
 
--- Clôture
+-- Clôture Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.cloture(modif BOOLEAN, this_geom GEOMETRY, id INT, type_mobilite INT, type_fils INT, type_poteau INT, date_amgt DATE, partiel BOOLEAN, etat INT, commentaire TEXT) RETURNS VOID AS $$
 DECLARE
-	id_cloture	INTEGER;
 	time_record	TIMESTAMP;
 
 BEGIN
@@ -163,22 +192,32 @@ BEGIN
 		INSERT INTO bd_equipement.cloture(clot_date_enre, clot_type_mobi_id , clot_type_fils_id , clot_type_pote_id , clot_date_amgt , clot_partiel , clot_etat_zoot_id, clot_comm, clot_geom)
 		VALUES(time_record, type_mobilite, type_fils, type_poteau, date_amgt, partiel, etat, commentaire, this_geom);
 
-		SELECT clot_id INTO id_cloture FROM bd_equipement.cloture ORDER BY clot_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.cloture
-		SET clot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, clot_geom) AND clot_id = id_cloture;
-
 	END IF;
 END;
 $$ LANGUAGE plpgsql;
+-- Clôture Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_cloture() RETURNS TRIGGER AS $$
+DECLARE
+	id_cloture	INTEGER;
+
+BEGIN
+
+	SELECT clot_id INTO id_cloture FROM bd_equipement.cloture ORDER BY clot_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.cloture
+	SET clot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), clot_geom) AND clot_id = id_cloture AND categorie = 1;
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_cloture AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_cloture();
 
 
--- Barrière
+-- Barrière Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.barriere(modif BOOLEAN, this_geom GEOMETRY, id INT, type_mobilite INT, type_structure INT, dimension INT, date_amgt DATE, cadenasPerm BOOLEAN, etat INT, commentaire TEXT) RETURNS INT AS $$
 DECLARE
 	distance	INTEGER;
-	id_barriere	INTEGER;
 	time_record	TIMESTAMP;
 
 BEGIN
@@ -210,24 +249,34 @@ BEGIN
 		INSERT INTO bd_equipement.barriere(barr_date_enre, barr_type_mobi_id, barr_type_stru_id, barr_dime, barr_date_amgt, barr_cade_perm, barr_etat_zoot_id, barr_comm, barr_geom)
 		VALUES(time_record, type_mobilite, type_structure, dimension, date_amgt, cadenasPerm, etat, commentaire, this_geom);
 
-		SELECT barr_id INTO id_barriere FROM bd_equipement.barriere ORDER BY barr_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.barriere
-		SET barr_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, barr_geom) AND barr_id = id_barriere;
-
 	END IF;
 
 	RETURN 0;
 END;
 $$ LANGUAGE plpgsql;
+-- Barrière Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_barriere() RETURNS TRIGGER AS $$
+DECLARE
+	id_barriere	INTEGER;
+
+BEGIN
+
+	SELECT barr_id INTO id_barriere FROM bd_equipement.barriere ORDER BY barr_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.barriere
+	SET barr_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), barr_geom) AND barr_id = id_barriere AND categorie = 1;
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_barriere AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_barriere();
 
 
--- Autre Aménagement de Zootechnie
+-- Autre Aménagement de Gestion Fonction Rec
 CREATE OR REPLACE FUNCTION bd_equipement.autre_amenagement_zootechnie(modif BOOLEAN, this_geom GEOMETRY, id INT, type INT, date_amgt DATE, etat INT, commentaire TEXT) RETURNS INT AS $$
 DECLARE
 	distance			INTEGER;
-	id_autr_amen_zoot	INTEGER;
 	time_record			TIMESTAMP;
 
 BEGIN
@@ -256,18 +305,31 @@ BEGIN
 		INSERT INTO bd_equipement.autre_amenagement_zootechnie(autr_amen_zoot_date_enre, autr_amen_zoot_type_autr_amen_zoot_id, autr_amen_zoot_date_amgt, autr_amen_zoot_etat_zoot_id, autr_amen_zoot_comm, autr_amen_zoot_geom)
 		VALUES(time_record, type, date_amgt, etat, commentaire, this_geom);
 
-		SELECT autr_amen_zoot_id INTO id_autr_amen_zoot FROM bd_equipement.autre_amenagement_zootechnie ORDER BY autr_amen_zoot_id DESC LIMIT 1;
-
-		UPDATE bd_equipement.autre_amenagement_zootechnie
-		SET autr_amen_zoot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
-		WHERE ST_Intersects(geom, autr_amen_zoot_geom) AND autr_amen_zoot_id = id_autr_amen_zoot;
-
 	END IF;
 
 	RETURN 0;
 
 END;
 $$ LANGUAGE plpgsql;
+
+-- Autre Aménagement de Gestion Trigger Site
+CREATE OR REPLACE FUNCTION bd_equipement.site_autre_amenagement_zootechnie() RETURNS TRIGGER AS $$
+DECLARE
+	id_autr_amen_zoot	INTEGER;
+
+BEGIN
+
+	SELECT autr_amen_zoot_id INTO id_autr_amen_zoot FROM bd_equipement.autre_amenagement_zootechnie ORDER BY autr_amen_zoot_id DESC LIMIT 1;
+
+	UPDATE bd_equipement.autre_amenagement_zootechnie
+	SET autr_amen_zoot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
+	WHERE ST_Intersects(ST_Buffer(geom, 100), autr_amen_zoot_geom) AND autr_amen_zoot_id = id_autr_amen_zoot AND categorie = 1;
+
+
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER site_autre_amenagement_zootechnie AFTER INSERT ON bd_equipement.panneau
+FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_autre_amenagement_zootechnie();
 
 
 

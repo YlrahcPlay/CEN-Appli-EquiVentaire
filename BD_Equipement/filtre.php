@@ -3,7 +3,7 @@
 
 
   //// Sites ////
-  $sql_sites = "SELECT ".'"ID"'." AS code_site, ".'"Nom_Site"'." AS nom_site, commune FROM md.site_cenhn ORDER BY commune, nom_site";
+  $sql_sites = "SELECT ".'"ID"'." AS code_site, ".'"Nom_Site"'." AS nom_site, commune FROM md.site_cenhn WHERE categorie = 1 ORDER BY commune, nom_site";
   $resultat_sites = tableau_objet($dbConnect, $sql_sites);
 
 
