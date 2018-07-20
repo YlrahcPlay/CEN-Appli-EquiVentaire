@@ -4,6 +4,11 @@
     text-align: center;
   }
 
+.aucun {
+  text-align: center;
+  color: #ff0000;
+}
+
   p {
     margin: 0px;
   }
@@ -128,38 +133,45 @@
 <h1>Fiche Caractéristique</h1>
 <h2><?=$nom_site ?></h2>
 
+<?php if ($nb_panneau == 0 && $nb_sentier == 0 && $nb_amgtValo == 0 && $nb_cloture == 0 && $nb_barriere == 0 && $nb_amgtGest == 0): ?>
+  <h3 class="aucun">Aucun équipement n'est sur ce site</h3>
+<?php endif; ?>
+
 <bookmark title="Résumé" level="0" ></bookmark>
 <div class="resume">
-  <p class="souligne">En résumé sur ce site:</p>
-    <?php if ($nb_panneau != 0): ?>
-      <?php $pann_SP = ucfirst(Singulier_Pluriels($nb_panneau, 'panneau')); ?>
-      <p class="nb">• <?=$nb_panneau ?> <?=$pann_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_panneau != 0 || $nb_sentier != 0 || $nb_amgtValo != 0 || $nb_cloture != 0 || $nb_barriere != 0 || $nb_amgtGest != 0): ?>
+    <p class="souligne">En résumé sur ce site:</p>
+  <?php endif; ?>
 
-    <?php if ($nb_sentier != 0): ?>
-      <?php $sent_SP = ucfirst(Singulier_Pluriels($nb_sentier, 'sentier')); ?>
-      <p class="nb">• <?=$long_sentier->longueur ?> mètre de <?=$sent_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_panneau != 0): ?>
+    <?php $pann_SP = ucfirst(Singulier_Pluriels($nb_panneau, 'panneau')); ?>
+    <p class="nb">• <?=$nb_panneau ?> <?=$pann_SP?></p>
+  <?php endif; ?>
 
-    <?php if ($nb_amgtValo != 0): ?>
-      <?php $amgtValo_SP = ucfirst(Singulier_Pluriels($nb_amgtValo, 'aménagement')); ?>
-      <p class="nb">• <?=$nb_amgtValo ?> <?=$amgtValo_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_sentier != 0): ?>
+    <?php $sent_SP = ucfirst(Singulier_Pluriels($nb_sentier, 'sentier')); ?>
+    <p class="nb">• <?=$long_sentier->longueur ?> mètre de <?=$sent_SP?></p>
+  <?php endif; ?>
 
-    <?php if ($nb_cloture != 0): ?>
-      <?php $clot_SP = ucfirst(Singulier_Pluriels($nb_cloture, 'clôture')); ?>
-      <p class="nb">• <?=$long_cloture_cen->longueur?> mètre de <?=$clot_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_amgtValo != 0): ?>
+    <?php $amgtValo_SP = ucfirst(Singulier_Pluriels($nb_amgtValo, 'aménagement')); ?>
+    <p class="nb">• <?=$nb_amgtValo ?> <?=$amgtValo_SP?></p>
+  <?php endif; ?>
 
-    <?php if ($nb_barriere != 0): ?>
-      <?php $barriere_SP = ucfirst(Singulier_Pluriels($nb_barriere, 'barrière')); ?>
-      <p class="nb">• <?=$nb_barriere ?> <?=$barriere_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_cloture != 0): ?>
+    <?php $clot_SP = ucfirst(Singulier_Pluriels($nb_cloture, 'clôture')); ?>
+    <p class="nb">• <?=$long_cloture_cen->longueur?> mètre de <?=$clot_SP?></p>
+  <?php endif; ?>
 
-    <?php if ($nb_amgtGest != 0): ?>
-      <?php $amgtGest_SP = ucfirst(Singulier_Pluriels($nb_amgtGest, 'aménagement')); ?>
-      <p class="nb">• <?=$nb_amgtGest ?> <?=$amgtGest_SP?></p>
-    <?php endif; ?>
+  <?php if ($nb_barriere != 0): ?>
+    <?php $barriere_SP = ucfirst(Singulier_Pluriels($nb_barriere, 'barrière')); ?>
+    <p class="nb">• <?=$nb_barriere ?> <?=$barriere_SP?></p>
+  <?php endif; ?>
+
+  <?php if ($nb_amgtGest != 0): ?>
+    <?php $amgtGest_SP = ucfirst(Singulier_Pluriels($nb_amgtGest, 'aménagement')); ?>
+    <p class="nb">• <?=$nb_amgtGest ?> <?=$amgtGest_SP?></p>
+  <?php endif; ?>
 </div>
 
 <bookmark title="Equipements" level="0" ></bookmark>

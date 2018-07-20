@@ -51,8 +51,9 @@
 ?>
 <div class="resume">
   <p>En résumé, le CEN Normandie-Seine, c'est :</p>
-  <p><?=$nbPanneau['0'] ?> <span class="pann">Panneaux -</span> <?=$longueurSent ?> Km de <span class="sent">Sentier -</span> <?=$nbAmgtComm['0'] ?> <span class="amgtComm">Aménagements de Communication</span></p>
-  <p><?=$longueurClot ?> Km de <span class="clot">Clôture -</span> <?=$nbBarriere['0'] ?> <span class="barr">Barrières -</span> <?=$nbAmgtZoot['0'] ?> <span class="amgtZoot">Aménagements de Zootechnie</span></p>
+  <!-- <p>En résumé, le CEN Normandie, c'est :</p> -->
+  <p><?=$nbPanneau['0'] ?> <span class="pann">Panneaux -</span> <?=$longueurSent ?> Km de <span class="sent">Sentier -</span> <?=$nbAmgtComm['0'] ?> <span class="amgtComm">Aménagements de Valorisation</span></p>
+  <p><?=$longueurClot ?> Km de <span class="clot">Clôture -</span> <?=$nbBarriere['0'] ?> <span class="barr">Barrières -</span> <?=$nbAmgtZoot['0'] ?> <span class="amgtZoot">Aménagements de Gestion</span></p>
 </div>
 
 <!-- <table class="resume centre">
