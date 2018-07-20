@@ -137,12 +137,13 @@ function ficheSentier(clef, type_sent, type_chem, date_amgt, etat, pmr, difficul
 };
 
 
-function ficheAmgtComm(clef, type, date_amgt, commentaire) {
+function ficheAmgtComm(clef, type, date_amgt, etat, commentaire) {
 $.ajax({
     url : "form/formAutreAmenagementCommunication.php", // Où envoyer la requête
     method : "GET", // (GET, POST, PUT)
     data : {type_amenagement:type
           , date_amgt:date_amgt
+          , etat:etat
           , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
@@ -221,12 +222,13 @@ function ficheBarriere(clef, type_mobilite, type_structure, dimension, date_amgt
 };
 
 
-function ficheAmgtZoot(clef, type, date_amgt, commentaire) {
+function ficheAmgtZoot(clef, type, date_amgt, etat, commentaire) {
 $.ajax({
     url : "form/formAutreAmenagementZootechnie.php", // Où envoyer la requête
     method : "GET", // (GET, POST, PUT)
     data : {type_amenagement:type
           , date_amgt:date_amgt
+          , etat:etat
           , commentaire:unescape(commentaire)
           , clefModif:clef}, // Argument(s) à envoyer
     dataType : "html", // Type de la réponse. (xml, json, script, html, jsonp, text)
