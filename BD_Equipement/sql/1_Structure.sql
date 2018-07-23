@@ -18,7 +18,6 @@ CREATE SCHEMA bd_equipement ;
 CREATE TABLE bd_equipement.categorie(
 	cate_id			SERIAL NOT NULL,
 	cate_libe		VARCHAR (50),
-	cate_doma_id	INT,
 	CONSTRAINT prk_constraint_categorie PRIMARY KEY (cate_id)
 )WITHOUT OIDS;
 
@@ -139,7 +138,7 @@ CREATE TABLE bd_equipement.etat_communication(
 )WITHOUT OIDS;
 
 
--- Table: autre_amenagement_communication
+-- Table: autre_amenagement_communication/valorisation
 CREATE TABLE bd_equipement.autre_amenagement_communication(
 	autr_amen_comm_id						SERIAL NOT NULL,
 	autr_amen_comm_date_enre				TIMESTAMP,
@@ -235,7 +234,7 @@ CREATE TABLE bd_equipement.type_mobilite(
 )WITHOUT OIDS;
 
 
--- Table: autre_amenagement_zootechnie
+-- Table: autre_amenagement_zootechnie/gestion
 CREATE TABLE bd_equipement.autre_amenagement_zootechnie(
 	autr_amen_zoot_id						SERIAL NOT NULL,
 	autr_amen_zoot_date_enre				TIMESTAMP,

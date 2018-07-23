@@ -5,10 +5,10 @@
 -- Table: Categorie
 INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (1, 'Panneau', 1);
 INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (2, 'Sentier', 1);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (3, 'Autre Aménagement de Communication', 1);
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (3, 'Autre Aménagement de Valorisation', 1);
 INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (4, 'Clôture', 2);
 INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (5, 'Barrière', 2);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (6, 'Autre Aménagement de Zootechnie', 2);
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (6, 'Autre Aménagement de Gestion', 2);
 
 
 ------------------------------------------------------------
@@ -54,7 +54,7 @@ INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_su
 INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (3, 'Application');
 
 
--- Table: etat_communication
+-- Table: etat_communication/valorisation
 INSERT INTO bd_equipement.etat_communication (etat_comm_id, etat_comm_libe) VALUES (1, 'Bon');
 INSERT INTO bd_equipement.etat_communication (etat_comm_id, etat_comm_libe) VALUES (2, 'Moyen');
 INSERT INTO bd_equipement.etat_communication (etat_comm_id, etat_comm_libe) VALUES (3, 'Mauvais');
@@ -100,16 +100,18 @@ INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (1, 
 INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (2, 'Métal');
 INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (4, 'Mixte');
 INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (5, 'Béton');
+INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (6, 'Plastique');
 
 
 -- Table: type_structure
 INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (1, 'Tubulaire');
-INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (2, 'Grillage avec Levier');
+INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (2, 'Grillage avec Levier / Herbagère');
 INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (3, 'Bois');
-INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (3, 'Porte Grillagée');
+INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (4, 'Porte Grillagée');
+INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (5, 'Portail métalique');
 
 
--- Table: etat_zootechnie
+-- Table: etat_zootechnie/gestion
 INSERT INTO bd_equipement.etat_zootechnie (etat_zoot_id, etat_zoot_libe) VALUES (1, 'Bon');
 INSERT INTO bd_equipement.etat_zootechnie (etat_zoot_id, etat_zoot_libe) VALUES (2, 'Ponctuellement Dégradé');
 INSERT INTO bd_equipement.etat_zootechnie (etat_zoot_id, etat_zoot_libe) VALUES (3, 'Partiellement Dégradé');
@@ -132,3 +134,8 @@ INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot
 INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (6, 'Passage d''homme');
 INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (7, 'Batiment de Stockage');
 INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (8, 'Batiment Abris');
+INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (9, 'Abreuvoir - Rivière');
+INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (10, 'Piézomètre');
+INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (11, 'Grille à Chauve-Souris');
+INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (12, 'Seuil');
+INSERT INTO bd_equipement.type_autre_amenagement_zootechnie (type_autr_amen_zoot_id, type_autr_amen_zoot_libe) VALUES (13, 'Cale de mise à l''eau');
