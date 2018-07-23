@@ -158,6 +158,7 @@ function cloture_Data() {
     color: "#3366cc" // couleur du contour
     , weight: 3 // épaisseur du contour
     , opacity: 1 // opacité du contour
+    , dashArray: '10, 5' // type de contour (tiret, point, etc...)
   };
 
   //// Appelle des données ////
