@@ -14,7 +14,7 @@ BEGIN
 
 	SELECT DISTINCT ST_CoveredBy(this_geom, ST_Buffer(geom, 100)) INTO in_site
 		FROM md.site_cenhn
-		WHERE ST_CoveredBy(this_geom, geom) ;
+		WHERE ST_CoveredBy(this_geom, ST_Buffer(geom, 100)) ;
 
 	IF (in_site = TRUE) THEN
 		error := 0;
