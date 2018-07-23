@@ -310,7 +310,8 @@
     <tr>
       <td><?=$date_amgt ?></td>
       <td><?=$info_barriere['etat']?></td>
-      <td><?=$info_barriere['dime']?></td>
+      <?php $dimension = Singulier_Pluriels($info_barriere['dime'], 'mètre') ?>
+      <td><?=$info_barriere['dime']?> <?=$dimension ?></td>
       <td><?=$info_barriere['mobi']?></td>
       <td><?=$info_barriere['stru']?></td>
     </tr>
