@@ -75,6 +75,8 @@ BEGIN
 	SET pann_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), pann_geom) AND pann_id = id_panneau AND categorie = 1;
 
+	RETURN NULL;
+
 END;
 $$ LANGUAGE plpgsql;
 CREATE TRIGGER site_panneau AFTER INSERT ON bd_equipement.panneau
@@ -121,9 +123,11 @@ BEGIN
 	SET sent_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), sent_geom) AND sent_id = id_sentier AND categorie = 1;
 
+	RETURN NULL;
+
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER site_sentier AFTER INSERT ON bd_equipement.panneau
+CREATE TRIGGER site_sentier AFTER INSERT ON bd_equipement.sentier
 FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_sentier();
 
 
@@ -163,9 +167,11 @@ BEGIN
 	SET autr_amen_comm_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), autr_amen_comm_geom) AND autr_amen_comm_id = id_autr_amen_comm AND categorie = 1;
 
+	RETURN NULL;
+
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER site_autre_amenagement_communication AFTER INSERT ON bd_equipement.panneau
+CREATE TRIGGER site_autre_amenagement_communication AFTER INSERT ON bd_equipement.autre_amenagement_communication
 FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_autre_amenagement_communication();
 
 
@@ -208,9 +214,11 @@ BEGIN
 	SET clot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), clot_geom) AND clot_id = id_cloture AND categorie = 1;
 
+	RETURN NULL;
+
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER site_cloture AFTER INSERT ON bd_equipement.panneau
+CREATE TRIGGER site_cloture AFTER INSERT ON bd_equipement.cloture
 FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_cloture();
 
 
@@ -267,9 +275,11 @@ BEGIN
 	SET barr_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), barr_geom) AND barr_id = id_barriere AND categorie = 1;
 
+	RETURN NULL;
+
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER site_barriere AFTER INSERT ON bd_equipement.panneau
+CREATE TRIGGER site_barriere AFTER INSERT ON bd_equipement.barriere
 FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_barriere();
 
 
@@ -325,10 +335,12 @@ BEGIN
 	SET autr_amen_zoot_site_cen_id = site_cenhn."ID" FROM md.site_cenhn
 	WHERE ST_Intersects(ST_Buffer(geom, 100), autr_amen_zoot_geom) AND autr_amen_zoot_id = id_autr_amen_zoot AND categorie = 1;
 
+	RETURN NULL;
+
 
 END;
 $$ LANGUAGE plpgsql;
-CREATE TRIGGER site_autre_amenagement_zootechnie AFTER INSERT ON bd_equipement.panneau
+CREATE TRIGGER site_autre_amenagement_zootechnie AFTER INSERT ON bd_equipement.autre_amenagement_zootechnie
 FOR EACH ROW EXECUTE PROCEDURE bd_equipement.site_autre_amenagement_zootechnie();
 
 

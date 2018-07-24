@@ -56,7 +56,7 @@
       $recMsg = "La ";
     };
 
-    $recMsg .= $objet ." doit être à l'interieur d'un site !";
+    $recMsg .= $objet ." doit être à moins de 100 mètres d'un site !";
   }
   // Si le dessin de l'équipement (sentier ou clôture) sort du site (levé de l'erreur n° -11)
   elseif ($verif[0] == -12) {
@@ -70,12 +70,12 @@
       $det_2 = "elle ";
     };
 
-    $recMsg = "Redessinez " .$det_1 .$objet .", " .$det_2 ."  passe en dehors du site.";
+    $recMsg = "Redessinez " .$det_1 .$objet .", " .$det_2 ."  passe à plus de 100 mètres du site.";
   }
   // Si l'équipements (barrière ou passage d'homme) est à plus de 20m d'une clôture (levé de l'erreur n° -2)
   elseif ($verif[0] == -20) {
     // Création du message
-    $recMsg = "La barrière doit se situer à moins de 20m d'une clôture";
+    $recMsg = "La barrière doit se situer à moins de 20 mètres d'une clôture";
   };
 ?>
 <div class="sqlAction">
