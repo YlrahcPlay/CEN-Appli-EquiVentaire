@@ -187,7 +187,7 @@ CREATE OR REPLACE FUNCTION bd_equipement.site_autre_amenagement_communication() 
 BEGIN
 
 	WITH enregistrement AS (
-		SELECT autr_amen_comm_id AS id, autre_amen_comm_geom AS geom
+		SELECT autr_amen_comm_id AS id, autr_amen_comm_geom AS geom
 		FROM bd_equipement.autre_amenagement_communication
 		ORDER BY id DESC
 		LIMIT 1
@@ -208,7 +208,7 @@ BEGIN
 	SET autr_amen_comm_site_cen_id = equip_site."ID"
 	  , autr_amen_comm_date_enre = now()
 	FROM enregistrement AS rec, equip_site
-	WHERE autr_amen_comm_site_cen_id = rec.id
+	WHERE autr_amen_comm_id = rec.id
 	;
 
 	RETURN NULL;
@@ -398,7 +398,7 @@ CREATE OR REPLACE FUNCTION bd_equipement.site_autre_amenagement_zootechnie() RET
 BEGIN
 
 	WITH enregistrement AS (
-		SELECT autr_amen_zoot_id AS id, autre_amen_zoot_geom AS geom
+		SELECT autr_amen_zoot_id AS id, autr_amen_zoot_geom AS geom
 		FROM bd_equipement.autre_amenagement_zootechnie
 		ORDER BY id DESC
 		LIMIT 1
@@ -419,7 +419,7 @@ BEGIN
 	SET autr_amen_zoot_site_cen_id = equip_site."ID"
 	  , autr_amen_zoot_date_enre = now()
 	FROM enregistrement AS rec, equip_site
-	WHERE autr_amen_zoot_site_cen_id = rec.id
+	WHERE autr_amen_zoot_id = rec.id
 	;
 
 	RETURN NULL;
