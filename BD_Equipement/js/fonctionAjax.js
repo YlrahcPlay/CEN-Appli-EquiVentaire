@@ -1,19 +1,20 @@
-// Function index
+// Index
 //
-// line 20 - Diapo photo (popup panneau)
-// line 49 - LightBox
-// line 61 - Suppression image
-// line 83, 110, 140, 165, 195, 224 - Fiches détaillées des équipements
-// line 253 - Affiche ou masque un élément
-// line 271 - Verification de la validité de la géométrie (A l'interieur d'un site ...)
-// line 304 - Chargement des attributs
-// line 346 - Cas du "panneau" de type "autre"
-// line 356 - Cas d'ajout de fichier aux "panneaux"
-// line 392 - Enregistrement des fichiers
-// line 417 - Suppression des tables temporaire (si fermeture sans enregistrement)
-// line 431 - Verification de la validité des attributs
-// line 628 - Enregistrement des attributs
-// line 740 - Suppression des attributs
+// line 21 - Diapo photo (popup panneau)
+// line 50 - LightBox
+// line 62 - Suppression image
+// line 84, 111, 141, 167, 197, 226 - Fiches détaillées des équipements
+// line 256 - Affiche ou masque un élément
+// line 274 - Verification de la validité de la géométrie (A l'interieur d'un site ...)
+// line 307 - Chargement des attributs
+// line 349 - Cas du "panneau" de type "autre"
+// line 359 - Cas d'ajout de fichier aux "panneaux"
+// line 395 - Enregistrement des fichiers
+// line 419 - Suppression des tables temporaire (si fermeture sans enregistrement)
+// line 434 - Verification de la validité des attributs
+// line 631 - Enregistrement des attributs
+// line 747 - Suppression des attributs
+// line 775, 787 - Affiche l'icône PDF, Génération du PDF
 
 
 // Diapo photo, popup panneau

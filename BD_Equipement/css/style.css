@@ -1,8 +1,22 @@
+/*
+// Index
+//
+// line 16 - Général
+// line 22 - En tête
+// line 45 - Carte & Attributs
+    // line 54- Carte
+    // line 77 - Popup
+    // line 117 - Attributs
+// line 245 - Json
+// line 251 - Filtre
+// line 283 - Résumé
+*/
+
+
 body, html {
   width: 100%;
   height: 100%;
   background: #DDD;
-  /* border: 1px solid #004494; */
 }
 
 /*//////////////////// En-tête ////////////////////*/
@@ -69,7 +83,6 @@ main #map .leaflet-popup-content-wrapper, .leaflet-popup-tip {
 main #map .popup {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   align-items: center;
   width: 225px;
 }
@@ -119,7 +132,6 @@ main #attributs .formTete {
   flex-direction: column;
   justify-content: center;
   height: 10%;
-  /* border-bottom: 1px solid black; */
 }
 
 main #attributs #fermer {
@@ -138,10 +150,6 @@ main #attributs h2 {
 }
 
 main #attributs .formCorps {
-  /* display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch; */
   height: 75%;
   overflow: auto;
 }
@@ -158,11 +166,6 @@ main #attributs .formCorps #erreur {
 main #attributs table {
   width: 100%;
 }
-
-/* main #attributs table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-} */
 
 main #attributs table td {
   padding: 0.25em 0;
@@ -182,16 +185,11 @@ main #attributs .lienDoc label {
   font-weight: bold;
 }
 
-/* main #attributs .lienPieceJointe a {
-        color: #000;
-      } */
-
 main #attributs .formPied {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 15%;
-  /* border: 1px solid black; */
 }
 
 main #attributs fieldset {
@@ -215,7 +213,6 @@ main #attributs .loading img {
   border-radius: 0 0 2em 2em;
   height: 25em;
   width: 30em;
-  /* font-size: 2em ; */
 }
 
 main #attributs .loading h3 {
@@ -293,10 +290,6 @@ footer {
   justify-content: space-around;
   align-items: center;
   text-align: center;
-}
-
-footer table th {
-  /* padding: 0.5em 0; */
 }
 
 footer .resume {

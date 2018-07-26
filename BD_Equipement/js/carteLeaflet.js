@@ -1,3 +1,18 @@
+// Index
+//
+// line 17 - Préparation des données "Panneau"
+// line 72 - Préparation des données "Sentier"
+// line 119 - Préparation des données "Autre Aménagement de Communication/Valorisation"
+// line 170 - Préparation des données "Clôture"
+// line 218 - Préparation des données "Barrière"
+// line 270 - Préparation des données "Autre Aménagement de Zootechnie/Gestion"
+// line 324 - Affichage des sites en fonction du filtre
+// line 386 - Affichage des catégories en fonction du filtre
+// line 444 - Affichage spécifique de l'icone de dessin en fonction de la catégorie
+// line 511 - Initialisation de la carte
+// line 558 - Action quand le dessin est crée
+
+
 //// Préparation de la donnée "Panneau" ////
 function panneau_Data() {
   //// Style à appliquer ////
@@ -53,7 +68,7 @@ function panneau_Data() {
 };
 
 
-//// Préparation la donnée "Sentier Pédagogique" ////
+//// Préparation la donnée "Sentier" ////
 function sentier_Data() {
   //// Style à appliquer ////
   var style_commSentier = {

@@ -1,4 +1,10 @@
 <?php
+// Index
+//
+// line 10 - Mise en format "object" de requête
+// line 21 - Création d'une table temporaire de liaison pour l'ajout de documents
+// line 35 - Enregistrement des documents dans la base
+
 
   // Mise en forme de requete
   function tableau_objet($connDB, $sql) {
@@ -25,6 +31,7 @@
     return $nomTable;
   };
 
+  // Enregistrement des documents
   function liaison($dbConnect, $categorie, $tableLiaison) {
     $sql = "SELECT COUNT(*) AS nb FROM bd_equipement.".$tableLiaison ;
     $res_nb_fichier = pg_query($dbConnect, $sql);
