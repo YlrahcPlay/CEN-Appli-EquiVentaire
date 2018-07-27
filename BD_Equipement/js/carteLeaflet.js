@@ -504,6 +504,52 @@ function drawing(){
 };
 
 
+//// Configuration de la légende ////
+function legend() {
+  legend = L.control({position: 'bottomright'});
+  legend.onAdd = function (maCarte) {
+    div = L.DomUtil.create('div', 'legend');
+
+    return div;
+  };
+  legend.addTo(maCarte);
+
+  $('div .legend').html('<div><img src="img/information" alt="Légende"/></div>');
+
+  $('div .legend').hover(
+    function () {
+      $('div .legend').html('<div class="contenu">' + '<span class="titre">Légende</span>'
+      + '<br><span class="iconographie pann" style="border-radius:50px"></span>' + 'Panneaux'
+      + '<br><span class="iconographie sent" style="height:7px; margin-top:5px;"></span>' + 'Sentiers'
+      + '<br><span class="iconographie amgtComm" style="border-radius:50px"></span>' + 'Autres Aménagements de Valorisation'
+      + '<br><span class="iconographie barr" style="border-radius:50px"></span>' + 'Barrières'
+      + '<br><span class="iconographie clot" style="height:7px; margin-top:5px;"></span>' + 'Clôtures'
+      + '<br><span class="iconographie amgtZoot" style="border-radius:50px"></span>' + 'Autres Aménagements de Gestion'
+      + '<br><span class="iconographie site"></span>' + 'Sites' + '</div>');
+
+      iconographie = [{objet : 'pann', couleur : '#ffcc80'}
+        , {objet : 'sent', couleur : '#ff9900'}
+        , {objet : 'amgtComm', couleur : '#834f01'}
+        , {objet : 'barr', couleur : '#bfd5ff'}
+        , {objet : 'clot', couleur : '#3b70da'}
+        , {objet : 'amgtZoot', couleur : '#1f3d7a'}
+        , {objet : 'site', couleur : '#00ff00'}];
+
+      // $('div .legend .sent').css('background-color', '#000');
+      for (i = 0; i < iconographie.length; i++) {
+        element = 'div .legend .' + iconographie[i].objet;
+        $(element).css('background-color', iconographie[i].couleur);
+        console.log(i, iconographie[i].objet, iconographie[i].couleur);
+        // console.log(element);
+      };
+    },
+    function () {
+      $('div .legend').html('<div><img src="img/information" alt="Légende"/></div>');
+    }
+  );
+};
+
+
 
 
 
@@ -549,10 +595,11 @@ $(document).ready(function() { // Action à faire quand la page html est chargé
   });
   lControl.addBaseLayer(googleSat, "Google Satellite");
 
-
   // Affichage des sites et équipements
   majsite();
   majcategorie();
+
+  legend();
 
   // Quand un dessin est crée
   maCarte.on('draw:created', function(event) {
@@ -565,5 +612,3 @@ $(document).ready(function() { // Action à faire quand la page html est chargé
     verifGeom($('#categorie').val(), $('#json').text())
   });
 });
-
-// I'm here
