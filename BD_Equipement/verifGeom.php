@@ -75,7 +75,14 @@
   // Si l'équipements (barrière ou passage d'homme) est à plus de 20m d'une clôture (levé de l'erreur n° -2)
   elseif ($verif[0] == -20) {
     // Création du message
-    $recMsg = "La barrière doit se situer à moins de 20 mètres d'une clôture";
+    if ($objet == 'barriere') {
+      $recMsg = "La barrière";
+    }
+    elseif ($objet == 'autreamgtzoot') {
+      $recMsg = "Le passage d'homme";
+    };
+
+    $recMsg .= " doit se situer à moins de 20m d'une clôture";
   };
 ?>
 <div class="sqlAction">

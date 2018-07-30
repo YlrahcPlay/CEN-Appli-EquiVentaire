@@ -206,10 +206,10 @@
     if ($requete[0] == 0) {
       // Création du message
       if ($objet == 'autreamgtcomm') {
-        $objet = "amenagement de communication";
+        $objet = "amenagement de valorisation";
       }
       elseif ($objet == 'autreamgtzoot') {
-        $objet = "amenagement de zootechnie";
+        $objet = "amenagement de Gestion";
       };
 
       $recMsg = ucfirst($objet);
@@ -219,54 +219,7 @@
       else {
         $recMsg .= " enregistré";
       };
-    }
-    // Si le dessin de l'équipement (sentier ou clôture) sort du site (levé de l'erreur n° -11)
-    elseif ($requete[0] == -11) {
-      $recMsg = "Veuillez redessiner.";
-      $recMsg .= "<br>Le dessin ";
-      if ($objet == 'sentier') {
-        $recMsg .= "du ";
-      }
-      elseif ($objet == 'cloture') {
-        $recMsg .= "de la ";
-      };
-
-      $recMsg .= $objet ." passe en dehors du site.";
-    }
-    // Si l'équipement ce situe en dehors d'un site (levé de l'erreur n° -12)
-    elseif ($requete[0] == -12) {
-      // Création du message
-      if ($objet == 'panneau' || $objet == 'sentier') {
-        $recMsg = "Le ";
-      }
-      elseif ($objet == 'autreamgtcomm' || $objet == 'autreamgtzoot') {
-        $recMsg = "L'";
-
-        if ($objet == 'autreamgtcomm') {
-          $objet = "amenagement de communication";
-        }
-        elseif ($objet == 'autreamgtzoot') {
-          $objet = "amenagement de zootechnie";
-        };
-      }
-      elseif ($objet == 'cloture' || $objet == 'barriere') {
-        $recMsg = "La ";
-      };
-
-      $recMsg .= $objet ." doit être à l'interieur d'un site !";
-    }
-    // Si l'équipements (barrière ou passage d'homme) est à plus de 20m d'une clôture (levé de l'erreur n° -2)
-    elseif ($requete[0] == -20) {
-      // Création du message
-      if ($objet == 'barriere') {
-        $recMsg = "La barrière";
-      }
-      elseif ($objet == 'autreamgtzoot') {
-        $recMsg = "Le passage d'homme";
-      };
-
-      $recMsg .= " doit se situer à moins de 20m d'une clôture";
-    }
+    };
   };
 
   pg_close($dbConnect); // Fermeture de l'accès à la base de données
