@@ -77,6 +77,10 @@ INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_c
 INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (13, 'Banc');
 INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (14, 'Borne à vélo');
 INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (15, 'Escalier');
+INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (16, 'Blockhaus');
+INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (17, 'Fosee pédagogique');
+INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (18, 'Profil pédagogique');
+INSERT INTO bd_equipement.type_autre_amenagement_communication (type_autr_amen_comm_id, type_autr_amen_comm_libe) VALUES (19, 'Rucher pédagogique');
 
 
 ------------------------------------------------------------
