@@ -71,18 +71,6 @@
     };
 
     $recMsg = "Redessinez " .$det_1 .$objet .", " .$det_2 ."  passe à plus de 100 mètres du site.";
-  }
-  // Si l'équipements (barrière ou passage d'homme) est à plus de 20m d'une clôture (levé de l'erreur n° -2)
-  elseif ($verif[0] == -20) {
-    // Création du message
-    if ($objet == 'barriere') {
-      $recMsg = "La barrière";
-    }
-    elseif ($objet == 'autreamgtzoot') {
-      $recMsg = "Le passage d'homme";
-    };
-
-    $recMsg .= " doit se situer à moins de 20m d'une clôture";
   };
 ?>
 <div class="sqlAction">
