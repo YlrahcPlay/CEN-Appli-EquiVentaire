@@ -9,8 +9,9 @@
 // line 324 - Affichage des sites en fonction du filtre
 // line 386 - Affichage des catégories en fonction du filtre
 // line 444 - Affichage spécifique de l'icone de dessin en fonction de la catégorie
-// line 511 - Initialisation de la carte
-// line 558 - Action quand le dessin est crée
+// line 508 - Affichage de la légende
+// line 558 - Initialisation de la carte
+// line 606 - Action quand le dessin est crée
 
 
 //// Préparation de la donnée "Panneau" ////
@@ -151,7 +152,7 @@ function autre_amenagement_communication_Data() {
     onEachFeature: function(attribut, couche) {
       couche.on({
         click: function(entite) {
-          contenu = "<div class=\"popup\"><label class=\"popTitre\">Autre Aménagement de Communication</label>"
+          contenu = "<div class=\"popup\"><label class=\"popTitre\">Autre Aménagement de Valorisation</label>"
             + "<br/><span><label class=\"popType\">Type : </label>" + attribut.properties.type_amenagement + "</span>"
             + "<br/><button type=\"button\" id=\"fiche\" name=\"fiche\" onclick=\"ficheAmgtComm(\'" + attribut.properties.autr_amen_comm_id + "\',\'" + attribut.properties.type_autr_amen_comm_id + "\',\'" + attribut.properties.date_amgt + "\',\'" + attribut.properties.etat_comm_id + "\',\'" + escape(attribut.properties.commentaire) + "\')\">Fiche Détaillée</button>"
             + "<br/><button type=\"button\" id=\"suppr\" name=\"suppr\" onclick=\"supprAttibut(\'autreamgtcomm\', \'" + attribut.properties.autr_amen_comm_id + "\'), maCarte.closePopup()\"><img id=\"supprImg\" src=\"img/garbage.png\" alt=\"Supprimer\"/></button></div>";
@@ -302,7 +303,7 @@ function autre_amenagement_zootechnie_Data() {
     onEachFeature: function(attribut, couche) {
       couche.on({
         click: function(entite) {
-          contenu = "<div class=\"popup\"><label class=\"popTitre\">Autre Aménagement de Zootechnie</label>"
+          contenu = "<div class=\"popup\"><label class=\"popTitre\">Autre Aménagement de Gestion</label>"
             + "<br/><span><label class=\"popType\">Type : </label>" + attribut.properties.type_amenagement + "</span>"
             + "<br/><button type=\"button\" id=\"fiche\" name=\"fiche\" onclick=\"ficheAmgtZoot(\'" + attribut.properties.autr_amen_zoot_id + "\',\'" + attribut.properties.type_autr_amen_zoot_id + "\',\'" + attribut.properties.date_amgt + "\',\'" + attribut.properties.etat_zoot_id + "\',\'" + escape(attribut.properties.commentaire) + "\')\">Fiche Détaillée</button>"
             + "<br/><button type=\"button\" id=\"suppr\" name=\"suppr\" onclick=\"supprAttibut(\'autreamgtzoot\', \'" + attribut.properties.autr_amen_zoot_id + "\'), maCarte.closePopup()\"><img id=\"supprImg\" src=\"img/garbage.png\" alt=\"Supprimer\"/></button></div>";
