@@ -187,10 +187,10 @@
       $recMsg .= " de l\'";
 
       if ($objet == 'autreamgtcomm') {
-        $objet = "amenagement de communication";
+        $objet = "amenagement de valorisation";
       }
       elseif ($objet == 'autreamgtzoot') {
-        $objet = "amenagement de zootechnie";
+        $objet = "amenagement de gestion";
       };
     }
     elseif ($objet == 'cloture' || $objet == 'barriere') {
