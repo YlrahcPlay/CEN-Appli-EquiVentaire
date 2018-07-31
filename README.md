@@ -2,7 +2,8 @@
 Appli développé pour le CEN Normandie-Seine, afin d'inventorier, de façon localisé, les equipements de valorisation et de gestion présent sur les sites.
 
 L'ensemble des équipements et de leurs caractéristiques géré dans la BD Equipement est visible dans l'[arborescence des équipements](https://framindmap.org/c/maps/488557/public)
-	N'oubliez pas de déplier les branches.
+
+N'oubliez pas de déplier les branches.
 
 ------------------------------------------------------------
 ## Programmateur, ATTENTION ‼
