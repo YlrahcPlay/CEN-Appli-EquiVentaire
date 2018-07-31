@@ -8,7 +8,7 @@ N'oubliez pas de déplier les branches.
 ------------------------------------------------------------
 ## Programmateur, ATTENTION ‼
 
-Pour la compréhension des gestionnaires de site, des termes entre l'application web et la base de donnée ont été changé, ainsi :
+Pour la compréhension des gestionnaires de site, des termes entre l'application web et la base de donnée ont été changé :
 
 * "communication"/"comm" = "valorisation"
 * "zootechnie"/"zoot" = "gestion"
