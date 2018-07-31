@@ -376,8 +376,8 @@ function majsite(){
     }
   });
   sitesCEN.addTo(maCarte);
-  // // Ajout d'une couche sélectionnable au controleur
-  // lControl.addOverlay(sitesCEN, "Sites du CEN");
+  // Ajout d'une couche sélectionnable au controleur
+  lControl.addOverlay(sitesCEN, "Sites du CEN");
 
   // Zoom sur l'entité
   maCarte.fitBounds(sitesCEN.getBounds());
