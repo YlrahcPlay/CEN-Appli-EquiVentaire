@@ -160,7 +160,7 @@
 
 			$FileNewName = time();
 
-			$sql = "INSERT INTO bd_equipement.support_communication(supp_comm_lien, supp_comm_type_supp_comm_id, supp_comm_date_enre) VALUES('".$FileLink."', ".$type.", to_timestamp('".$FileNewName."'))";
+			$sql = "INSERT INTO bd_equipement.support_communication(supp_comm_lien, supp_comm_type_supp_comm_id, supp_comm_date_enre) VALUES(E'".$FileLink."', ".$type.", to_timestamp('".$FileNewName."'))";
 		}
 		else {
 			echo("<br/>Insérez un lien");
