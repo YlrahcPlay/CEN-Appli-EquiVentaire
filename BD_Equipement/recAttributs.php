@@ -10,7 +10,7 @@
   if ($objet == 'panneau') {
     // Récupération des informations transmise
     $type = $_GET['type'];
-    $precision = $_GET['precision'];
+    $precision = addslashes($_GET['precision']);
     if ($precision == '' || $type != 5) {$precision = "null";};
     $date_amgt = $_GET['date_amgt'];
     $etat = $_GET['etat'];
@@ -29,7 +29,7 @@
       $geom = "ST_Transform(ST_SetSRID(ST_GeomFromGeoJSON('".$geom."'),4326),2154)";
     };
 
-    $sql = "SELECT bd_equipement.panneau(".$modif.", ".$geom.", ".$clefModif.", ".$type.", '".$precision."'::varchar, '".$date_amgt."'::date, ".$etat.", E'".$commentaire."'::text)";
+    $sql = "SELECT bd_equipement.panneau(".$modif.", ".$geom.", ".$clefModif.", ".$type.", E'".$precision."'::varchar, '".$date_amgt."'::date, ".$etat.", E'".$commentaire."'::text)";
   }
 
   // Sentier

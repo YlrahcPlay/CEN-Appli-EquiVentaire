@@ -53,7 +53,7 @@ function panneau_Data() {
           contenu = "<div class=\"popup\"><label class=\"popTitre\">Panneau</label>"
             + "<br/><span><label class=\"popType\">Type : </label>" + attribut.properties.type_panneau + "</span>"
             + "<br/><span id=\"popPhotoPanneau\"></span>"
-            + "<br/><button type=\"button\" id=\"fiche\" name=\"fiche\" onclick=\"fichePanneau(\'" + attribut.properties.pann_id + "\',\'" + attribut.properties.type_pann_id + "\',\'" + attribut.properties.pann_prec + "\',\'" + attribut.properties.date_amgt + "\',\'" + attribut.properties.etat_comm_id + "\',\'" + escape(attribut.properties.commentaire) + "\')\">Fiche Détaillée</button>"
+            + "<br/><button type=\"button\" id=\"fiche\" name=\"fiche\" onclick=\"fichePanneau(\'" + attribut.properties.pann_id + "\',\'" + attribut.properties.type_pann_id + "\',\'" + escape(attribut.properties.pann_prec) + "\',\'" + attribut.properties.date_amgt + "\',\'" + attribut.properties.etat_comm_id + "\',\'" + escape(attribut.properties.commentaire) + "\')\">Fiche Détaillée</button>"
             + "<br/><button type=\"button\" id=\"suppr\" name=\"suppr\" onclick=\"supprAttibut(\'panneau\', \'" + attribut.properties.pann_id + "\'), maCarte.closePopup()\"><img id=\"supprImg\" src=\"img/garbage.png\" alt=\"Supprimer\"/></button></div>";
           popup = L.popup({closeOnClick: true})
             .setLatLng(entite.latlng)

@@ -86,7 +86,7 @@ function fichePanneau(clef, type, precision, date_amgt, etat, commentaire) {
     url : "form/formPanneau.php", // Où envoyer la requête
     method : "GET", // Méthode à utiliser. (GET, POST, PUT)
     data : {type:type
-          , precision:precision
+          , precision:unescape(precision)
           , date_amgt:date_amgt
           , etat:etat
           , commentaire:unescape(commentaire)

@@ -155,7 +155,7 @@
 			elseif (isset($_POST['application'])) {
 				$objet = "application";
 				$type = 3;
-				$FileLink = $_POST['application'];
+				$FileLink = addslashes($_POST['application']);
 			}
 
 			$FileNewName = time();
