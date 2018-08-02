@@ -32,23 +32,29 @@
   };
 
   // Enregistrement des documents
-  function liaison($dbConnect, $categorie, $tableLiaison) {
+  function liaison($dbConnect, $categorie, $clefModif, $tableLiaison) {
     $sql = "SELECT COUNT(*) AS nb FROM bd_equipement.".$tableLiaison ;
     $res_nb_fichier = pg_query($dbConnect, $sql);
     $obj_nb_fichier = pg_fetch_object($res_nb_fichier);
     $nb_fichier = intval($obj_nb_fichier->nb);
 
 		if ($nb_fichier != 0) {
-      if ($categorie == 'panneau') {
-        $sql = "SELECT pann_id AS id FROM bd_equipement.panneau ORDER BY pann_date_enre DESC LIMIT 1";
+      if ($clefModif != 0) {
+        $id_ref = $clefModif;
       }
-      elseif ($categorie == 'sentier') {
-        $sql = "SELECT sent_id AS id FROM bd_equipement.sentier ORDER BY sent_date_enre DESC LIMIT 1";
+      else {
+        if ($categorie == 'panneau') {
+          $sql = "SELECT pann_id AS id FROM bd_equipement.panneau ORDER BY pann_date_enre DESC LIMIT 1";
+        }
+        elseif ($categorie == 'sentier') {
+          $sql = "SELECT sent_id AS id FROM bd_equipement.sentier ORDER BY sent_date_enre DESC LIMIT 1";
+        };
+
+        $res_id_ref = pg_query($dbConnect, $sql);
+        $obj_id_ref = pg_fetch_object($res_id_ref);
+        $id_ref = $obj_id_ref->id;
       };
 
-      $res_id_ref = pg_query($dbConnect, $sql);
-      $obj_id_ref = pg_fetch_object($res_id_ref);
-      $id_ref = $obj_id_ref->id;
 
       for ($i=1; $i-1 < $nb_fichier ; $i++) {
         $sql = "SELECT liai_fich_id, liai_obje FROM bd_equipement.".$tableLiaison." WHERE liai_id = ".$i." LIMIT 1";

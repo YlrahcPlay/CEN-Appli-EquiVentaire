@@ -162,10 +162,10 @@
   $requete = pg_query($dbConnect, $sql); // Requet d'insertion et de modification
 
   if ($objet == 'panneau') {
-      liaison($dbConnect,$objet,$tableLiaison);
+      liaison($dbConnect, $objet, $clefModif, $tableLiaison);
     }
     elseif ($objet == 'sentier') {
-      liaison($dbConnect,$objet,$tableLiaison);
+      liaison($dbConnect, $objet, $clefModif, $tableLiaison);
     };
 
   $requete = pg_fetch_array($requete);

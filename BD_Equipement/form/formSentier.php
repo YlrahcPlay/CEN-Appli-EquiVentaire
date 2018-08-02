@@ -193,7 +193,7 @@
         <?php endforeach; ?>
       </select></td>
     </tr>
-    <tr> <!-- Support de communication -->
+    <tr> <!-- Support de communication (insertion) -->
       <td class="label"><label for="supportComm">Supports de communication : </label></td>
       <td><select id="supportComm" name="supportComm" onchange="choixDoc('supportComm')">
         <option value="">Type à Choisir</option>
@@ -234,13 +234,13 @@
       <?php else: ?>
         ></textarea>
       <?php endif; ?></td>
-    </tr>
+    </tr> <!-- Support de communication (affichage) -->
     <?php if ($getModif != ''): ?>
       <?php if ($nbLienPlaquette > 0): ?>
         <tr id="lienPlaquette" class="lienDoc">
           <td colspan="3" style="text-align:center">
             <label>Plaquette</label>
-            <br/><a href="http://localhost/BD_Equipement/<?=$resultats_lienPlaquette[0]->lien ?>" data-lightbox="plaquette" data-title="Plaquette">Il y a <?=$nbLienPlaquette ?> Plaquette.</a>
+            <br/><a href="http://localhost/BD_Equipement/<?=$resultats_lienPlaquette[0]->lien ?>" data-lightbox="plaquette" data-title="Plaquette">Il y a <?=$nbLienPlaquette ?> Plaquettes.</a>
             <?php for ($i=1; $i < $nbLienPlaquette; $i++): ?>
               <a class="docPlaquette" href="http://localhost/BD_Equipement/<?=$resultats_lienPlaquette[$i]->lien ?>" data-lightbox="plaquette" data-title="Plaquette"/>
             <?php endfor; ?>
@@ -262,7 +262,7 @@
           <td colspan="3" style="text-align:center">
             <label>Application</label>
             <?php for ($i=0; $i < $nbLienApplication; $i++): ?>
-              <br/><a href="<?=$resultats_lienApplication[$i]->lien ?>"><?=$resultats_lienApplication[$i]->lien ?></a>
+              <br/><a href="#"><?=$resultats_lienApplication[$i]->lien ?></a>
             <?php endfor; ?>
           </td>
         </tr>
