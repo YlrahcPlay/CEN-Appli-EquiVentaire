@@ -540,8 +540,6 @@ function legend() {
       for (i = 0; i < iconographie.length; i++) {
         element = 'div .legend .' + iconographie[i].objet;
         $(element).css('background-color', iconographie[i].couleur);
-        console.log(i, iconographie[i].objet, iconographie[i].couleur);
-        // console.log(element);
       };
     },
     function () {

@@ -385,7 +385,7 @@ function choixDoc(type) {
   if (type == 'pieceJointe') {
     $('#formContenu').hide();
     $('#formFlashCode').hide();
-    $('#formPJSiteInternet').hide();
+    $('#formSiteInternet').hide();
 
     valeur = $('#pieceJointe').val();
     if (valeur == 1) {
@@ -395,12 +395,12 @@ function choixDoc(type) {
       affiche_masque("#formFlashCode");
     }
     else if (valeur == 3) {
-      affiche_masque("#formPJSiteInternet");
+      affiche_masque("#formSiteInternet");
     };
   }
   else if (type == 'supportComm') {
     $('#formPlaquette').hide();
-    $('#formSCSiteInternet').hide();
+    $('#formSiteInternet').hide();
     $('#formApplication').hide();
 
     valeur = $('#supportComm').val();
@@ -408,7 +408,7 @@ function choixDoc(type) {
       affiche_masque("#formPlaquette");
     }
     else if (valeur == 2) {
-      affiche_masque("#formSCSiteInternet");
+      affiche_masque("#formSiteInternet");
     }
     else if (valeur == 3) {
       affiche_masque("#formApplication");
@@ -427,11 +427,11 @@ function wait(origine, destination) {
       clearTimeout();
       setTimeout(function() {$(destination).html("");}, 5000);
 
-      if (origine == '#formPJSiteInternet') {
-        $('#PJSiteInternet').val("");
+      if (origine == '#formSiteInternet') {
+        $('#SiteInternet').val("");
       };
-      if (origine == '#formSCSiteInternet') {
-        $('#SCSiteInternet').val("");
+      if (origine == '#formSiteInternet') {
+        $('#SiteInternet').val("");
       };
       if (origine == '#formApplication') {
         $('#application').val("");

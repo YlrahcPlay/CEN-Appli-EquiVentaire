@@ -190,13 +190,16 @@ main #attributs table td {
   padding: 0.25em 0;
   width: 50%;
 }
+/* main #attributs table th, td {
+  border: 1px solid #000;
+} */
 
 main #attributs table .label {
   text-align: right;
   padding-right: 0.1em;
 }
 
-main #attributs table #precision, #formContenu, #formFlashCode, #formPJSiteInternet, #formPlaquette, #formSCSiteInternet, #formApplication, .docContenu, .docFlashCode, .docPlaquette {
+main #attributs table #precision, #formContenu, #formFlashCode, #formSiteInternet, #formPlaquette, #formApplication, .docContenu, .docFlashCode, .docPlaquette {
   display: none;
 }
 

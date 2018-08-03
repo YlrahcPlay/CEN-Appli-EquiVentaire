@@ -69,6 +69,7 @@
     $commentaire = addslashes($_GET['commentaire']);
     if ($commentaire == '') {$commentaire = "null";};
     $geom = $_GET['geom'];
+    $tableLiaison = $_GET['tableLiaison'];
 
     if ($clefModif != '') {
       $modif = 'true';
@@ -161,10 +162,7 @@
 
   $requete = pg_query($dbConnect, $sql); // Requet d'insertion et de modification
 
-  if ($objet == 'panneau') {
-      liaison($dbConnect, $objet, $clefModif, $tableLiaison);
-    }
-    elseif ($objet == 'sentier') {
+  if ($objet == 'panneau' || $objet == 'sentier' || $objet == 'autreamgtcomm') {
       liaison($dbConnect, $objet, $clefModif, $tableLiaison);
     };
 

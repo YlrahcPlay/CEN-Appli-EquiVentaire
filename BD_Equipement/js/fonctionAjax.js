@@ -357,35 +357,35 @@ function precision() {
 
 
 function choixDoc(type) {
-  if (type == 'pieceJointe') {
+  if (type == 'panneau') {
     $('#formContenu').hide();
     $('#formFlashCode').hide();
-    $('#formPJSiteInternet').hide();
+    $('#formSiteInternet').hide();
 
-    valeur = $('#pieceJointe').val();
-    if (valeur == 1) {
+    valeur = $('#supportComm').val();
+    if (valeur == 2) {
       affiche_masque("#formContenu");
     }
-    else if (valeur == 2) {
+    else if (valeur == 3) {
       affiche_masque("#formFlashCode");
     }
-    else if (valeur == 3) {
-      affiche_masque("#formPJSiteInternet");
+    else if (valeur == 5) {
+      affiche_masque("#formSiteInternet");
     };
   }
-  else if (type == 'supportComm') {
+  else if (type == 'sentier') {
     $('#formPlaquette').hide();
-    $('#formSCSiteInternet').hide();
+    $('#formSiteInternet').hide();
     $('#formApplication').hide();
 
     valeur = $('#supportComm').val();
-    if (valeur == 1) {
+    if (valeur == 4) {
       affiche_masque("#formPlaquette");
     }
-    else if (valeur == 2) {
-      affiche_masque("#formSCSiteInternet");
+    else if (valeur == 5) {
+      affiche_masque("#formSiteInternet");
     }
-    else if (valeur == 3) {
+    else if (valeur == 6) {
       affiche_masque("#formApplication");
     };
   };
@@ -399,14 +399,14 @@ function wait(origine, destination) {
 		},
 		success: function(data) {
 			$(destination).html(data);
-      clearTimeout();
-      setTimeout(function() {$(destination).html("");}, 5000);
+      // clearTimeout();
+      // setTimeout(function() {$(destination).html("");}, 5000);
 
-      if (origine == '#formPJSiteInternet') {
-        $('#PJSiteInternet').val("");
+      if (origine == '#formSiteInternet') {
+        $('#SiteInternet').val("");
       };
-      if (origine == '#formSCSiteInternet') {
-        $('#SCSiteInternet').val("");
+      if (origine == '#formSiteInternet') {
+        $('#SiteInternet').val("");
       };
       if (origine == '#formApplication') {
         $('#application').val("");
@@ -422,7 +422,6 @@ function suppr_table_tmp(tableLiaison) {
     url      : "supprLiaison.php",
     data     : {tableLiaison:tableLiaison},
     type     : "POST",
-    dataType : "html",
     async    : false,
     error    : function(request, error) {alert("Erreur : responseText: "+request.responseText);},
     success  :  function(data) {}
@@ -517,7 +516,7 @@ function validation(url,destination,type, clefModif, tableLiaison) {
       affiche_masque('#erreur');
     }
     else {
-      recAttributs(url,destination,type, clefModif, "");
+      recAttributs(url,destination,type, clefModif, tableLiaison);
     };
 
     if ($('#type_amenagement').val() == '') {
@@ -668,7 +667,8 @@ function recAttributs(url,destination,type, clefModif, tableLiaison) {
           , etat:$('#etat').val()
           , commentaire:$('#commentaire').val()
           , geom:$('#json').text()
-          , clefModif:clefModif};
+          , clefModif:clefModif
+          , tableLiaison:tableLiaison};
   }
   else if (type == "cloture") {
     if ($('#partielOui:checked').val() == 'true') {

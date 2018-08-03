@@ -118,7 +118,7 @@ CREATE TABLE bd_equipement.support_communication(
 	supp_comm_lien				VARCHAR (280),
 	supp_comm_date_enre				TIMESTAMP ,
 	supp_comm_type_supp_comm_id	INT,
-	supp_comm_sent_id			INT,
+	supp_comm_equi_id			INT,
 	CONSTRAINT prk_constraint_support_communication PRIMARY KEY (supp_comm_id)
 )WITHOUT OIDS;
 

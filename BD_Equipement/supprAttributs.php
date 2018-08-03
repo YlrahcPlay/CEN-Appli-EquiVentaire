@@ -8,32 +8,32 @@
 
   // Suppression des documents associé
   if ($objet == 'panneau') {
-    $sql = "SELECT photo_lien AS lien FROM bd_equipement.photo WHERE photo_pann_id = ".$clef;
+    $sql = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_type_supp_comm_id = 1 AND supp_comm_equi_id = ".$clef;
     $resultats_photo = tableau_objet($dbConnect, $sql);
-
-    $sql = "SELECT piec_join_lien AS lien FROM bd_equipement.piece_jointe WHERE piec_join_pann_id = ".$clef." AND piec_join_type_piec_join_id != 3";
-    $resultats_pieceJointe = tableau_objet($dbConnect, $sql);
 
     foreach ($resultats_photo as $photo) {
       $lien = $photo->lien;
       unlink($lien);
-      $lienMiniature = substr($lien, 0, 10) ."miniature/mini_" .substr($lien, 10);
+      $lien_explode = explode('/', $lien);
+      $lienMiniature = $lien_explode[0]."/".$lien_explode[1]."/miniature/mini_".$lien_explode[2];
       unlink($lienMiniature);
     };
 
-    foreach ($resultats_pieceJointe as $pieceJointe) {
-      $lien = $pieceJointe->lien;
-      unlink($lien);
-    };
+    $sql = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_type_supp_comm_id IN (2, 3) AND supp_comm_equi_id = ".$clef;
+    $resultats_supportComm = tableau_objet($dbConnect, $sql);
   }
   elseif ($objet == 'sentier') {
-    $sql = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_sent_id = ".$clef." AND supp_comm_type_supp_comm_id = 1";
+    $sql = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 4 AND supp_comm_equi_id = ".$clef;
     $resultats_supportComm = tableau_objet($dbConnect, $sql);
+  }
+  elseif ($objet == 'autreamgtcomm') {
+    $sql = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 3 AND supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$clef;
+    $resultats_supportComm = tableau_objet($dbConnect, $sql);
+  };
 
-    foreach ($resultats_supportComm as $supportComm) {
-      $lien = $supportComm->lien;
-      unlink($lien);
-    };
+  foreach ($resultats_supportComm as $supportComm) {
+    $lien = $supportComm->lien;
+    unlink($lien);
   };
 
   // Appel de la fonction de suppression

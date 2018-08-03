@@ -3,6 +3,7 @@
   include('fonction.php'); // Insertion des fonctions
 
   $tableLiaison = $_POST['tableLiaison'];
+  // $tableLiaison = $_GET['tableLiaison'];
 
   $sql = "SELECT COUNT(*) AS nb FROM bd_equipement.".$tableLiaison ;
   $res_nb_fichier = pg_query($dbConnect, $sql);
@@ -18,36 +19,25 @@
 
 
       if ($objet == 'photo') {
-        $sql = "SELECT photo_lien FROM bd_equipement.photo WHERE photo_date_enre = '".$id_fichier."'";
+        $sql = "SELECT supp_comm_lien FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
         $resultats_photo = tableau_objet($dbConnect, $sql);
         $lien = $resultats_photo[0]->photo_lien;
 
-        $lien_miniature = substr($lien, 0, 10)."miniature/mini_".substr($lien, 10);
+        $lien_explode = explode('/', $lien);
+        $lien_miniature = $lien_explode[0]."/".$lien_explode[1]."/miniature/mini_".$lien_explode[2];
 
         unlink($lien_miniature);
         unlink($lien);
 
-        $sql = "DELETE FROM bd_equipement.photo WHERE photo_date_enre = '".$id_fichier."'";
+        $sql = "DELETE FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
       }
-      elseif ($objet == 'piece_jointe') {
-        $sql = "SELECT piec_join_lien, piec_join_type_piec_join_id AS type_piec_join FROM bd_equipement.piece_jointe WHERE piec_join_date_enre = '".$id_fichier."'";
-        $resultats_pieceJointe = tableau_objet($dbConnect, $sql);
-        $lien = $resultats_pieceJointe[0]->piec_join_lien;
-        $objet = $resultats_pieceJointe[0]->type_piec_join;
-
-        if ($objet != 3) {
-          unlink($lien);
-        };
-
-        $sql = "DELETE FROM bd_equipement.piece_jointe WHERE piec_join_date_enre = '".$id_fichier."'";
-      }
-      elseif ($objet == 'support_communication') {
+      else {
         $sql = "SELECT supp_comm_lien, supp_comm_type_supp_comm_id AS type_supp_comm_id FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
         $resultats_supportComm = tableau_objet($dbConnect, $sql);
         $lien = $resultats_supportComm[0]->supp_comm_lien;
         $objet = $resultats_supportComm[0]->type_supp_comm_id;
 
-        if ($objet == 1) {
+        if (in_array($objet, array(2, 3, 4))) {
           unlink($lien);
         }
 
@@ -61,4 +51,6 @@
   pg_query($dbConnect, $sql);
 
   pg_close($dbConnect);
+
+  echo("Success !!!!")
 ?>

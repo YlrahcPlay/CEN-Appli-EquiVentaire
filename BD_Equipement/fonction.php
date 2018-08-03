@@ -48,6 +48,9 @@
         }
         elseif ($categorie == 'sentier') {
           $sql = "SELECT sent_id AS id FROM bd_equipement.sentier ORDER BY sent_date_enre DESC LIMIT 1";
+        }
+        elseif ($categorie == 'autreamgtcomm') {
+          $sql = "SELECT autr_amen_comm_id AS id FROM bd_equipement.autre_amenagement_communication ORDER BY autr_amen_comm_date_enre DESC LIMIT 1";
         };
 
         $res_id_ref = pg_query($dbConnect, $sql);
@@ -57,20 +60,11 @@
 
 
       for ($i=1; $i-1 < $nb_fichier ; $i++) {
-        $sql = "SELECT liai_fich_id, liai_obje FROM bd_equipement.".$tableLiaison." WHERE liai_id = ".$i." LIMIT 1";
+        $sql = "SELECT liai_fich_id FROM bd_equipement.".$tableLiaison." WHERE liai_id = ".$i." LIMIT 1";
         $resultats_liaison = tableau_objet($dbConnect, $sql);
         $id_fichier = $resultats_liaison[0]->liai_fich_id;
-        $objet = $resultats_liaison[0]->liai_obje;
 
-        if ($objet == 'photo') {
-          $sql = "UPDATE bd_equipement.photo SET photo_pann_id = ".$id_ref." WHERE photo_date_enre = '".$id_fichier."'";
-        }
-        elseif ($objet == 'piece_jointe') {
-          $sql = "UPDATE bd_equipement.piece_jointe SET piec_join_pann_id = ".$id_ref." WHERE piec_join_date_enre = '".$id_fichier."'";
-        }
-        elseif ($objet == 'support_communication') {
-    			$sql = "UPDATE bd_equipement.support_communication SET supp_comm_sent_id = ".$id_ref." WHERE supp_comm_date_enre = '".$id_fichier."'";
-        };
+        $sql = "UPDATE bd_equipement.support_communication SET supp_comm_equi_id = ".$id_ref." WHERE supp_comm_date_enre = '".$id_fichier."'";
         pg_query($dbConnect, $sql);
       };
     };

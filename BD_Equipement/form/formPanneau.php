@@ -41,12 +41,12 @@
 
   $resultats_etats = tableau_objet($dbConnect, $sql_etats);
 
-  // Pièce-Jointe
-  $sql_pieceJointe =
-  "SELECT type_piec_join_id AS id, type_piec_join_libe AS libelle
-  FROM bd_equipement.type_piece_jointe";
+  // Support de communication
+  $sql_suppComm = "SELECT type_supp_comm_id AS id, type_supp_comm_libe AS libelle
+  FROM bd_equipement.type_support_communication
+  WHERE type_supp_comm_id IN (2, 3, 5)";
 
-  $resultats_pieceJointe = tableau_objet($dbConnect, $sql_pieceJointe);
+  $resultats_supportComm = tableau_objet($dbConnect, $sql_suppComm);
 
 
   // Commentaire
@@ -65,17 +65,17 @@
 
 
   if ($getModif != '') {
-    $sql_lienContenu = "SELECT piec_join_lien AS liencontenu FROM bd_equipement.piece_jointe WHERE piec_join_type_piec_join_id = 1 AND piec_join_pann_id = ".$getModif;
+    $sql_lienContenu = "SELECT supp_comm_lien AS liencontenu FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienContenu = tableau_objet($dbConnect, $sql_lienContenu);
     $nbLienContenu = count($resultats_lienContenu);
 
-    $sql_lienFlashCode = "SELECT piec_join_lien AS lienflashcode FROM bd_equipement.piece_jointe WHERE piec_join_type_piec_join_id = 2 AND piec_join_pann_id = ".$getModif;
+    $sql_lienFlashCode = "SELECT supp_comm_lien AS lienflashcode FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 3 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienFlashCode = tableau_objet($dbConnect, $sql_lienFlashCode);
     $nbLienFlashCode = count($resultats_lienFlashCode);
 
-    $sql_lienPJSiteInternet = "SELECT piec_join_lien AS liensiteintenet FROM bd_equipement.piece_jointe WHERE piec_join_type_piec_join_id = 3 AND piec_join_pann_id = ".$getModif;
-    $resultats_lienPJSiteInternet = tableau_objet($dbConnect, $sql_lienPJSiteInternet);
-    $nbLienPJSiteInternet = count($resultats_lienPJSiteInternet);
+    $sql_lienSiteInternet = "SELECT supp_comm_lien AS liensiteintenet FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 5 AND supp_comm_equi_id = ".$getModif;
+    $resultats_lienSiteInternet = tableau_objet($dbConnect, $sql_lienSiteInternet);
+    $nbLienSiteInternet = count($resultats_lienSiteInternet);
   };
 
   $nomTable = creationLiaison($dbConnect);
@@ -148,7 +148,7 @@
         <?php endforeach; ?>
       </select></td>
     </tr>
-    <tr> <!-- Insérertion de photos -->
+    <tr> <!-- Photos - Insérertion -->
       <td class="label"><label for="photo">Photos : </label></td>
       <td colspan="2">
         <form id="formPhoto" action="upload.php?tableLiaison=<?=$nomTable?>" method="post" enctype="multipart/form-data">
@@ -158,18 +158,18 @@
         </form>
       </td>
     </tr>
-    <tr> <!-- Insértion des pièces-jointe -->
-      <td class="label"><label for="pieceJointe">Pièce-jointes : </label></td>
-      <td colspan="2"><select id="pieceJointe" name="pieceJointe" onchange="choixDoc('pieceJointe')">
+    <tr> <!-- Support - Insértion -->
+      <td class="label"><label for="supportComm">Supports de valorisation: </label></td>
+      <td colspan="2"><select id="supportComm" name="supportComm" onchange="choixDoc('panneau')">
         <option value="">Type à Choisir</option>
-        <?php foreach ($resultats_pieceJointe as $pieceJointe): ?>
-          <option value="<?=$pieceJointe->id ?>"><?=$pieceJointe->libelle ?></option>
+        <?php foreach ($resultats_supportComm as $supportComm): ?>
+          <option value="<?=$supportComm->id ?>"><?=$supportComm->libelle ?></option>
         <?php endforeach; ?>
       </select></td>
     </tr>
     <tr>
       <td colspan="3" style="text-align: center;">
-        <form id="formContenu" action="upload.php?tableLiaison=<?=$nomTable?>" method="post" enctype="multipart/form-data">
+        <form id="formContenu" action="upload.php?tableLiaison=<?=$nomTable?>&categorie=1" method="post" enctype="multipart/form-data">
         	<input type="file" id="contenu" name="contenu" accept="image/jpg, image/jpeg, image/x-png, application/pdf"></input>
         	<input type="submit" value="Envoyer" onclick="wait('#formContenu', '#loadingUploadContenu')"></input>
         	<span id="loadingUploadContenu"></span>
@@ -179,10 +179,10 @@
         	<input type="submit" value="Envoyer" onclick="wait('#formFlashCode', '#loadingUploadFlashCode')"></input>
         	<span id="loadingUploadFlashCode"></span>
         </form>
-        <form id="formPJSiteInternet" action="upload.php?tableLiaison=<?=$nomTable?>" method="post" enctype="multipart/form-data">
-          <input type="text" id="PJSiteInternet" name="PJSiteInternet">
-          <button type="submit" onclick="wait('#formPJSiteInternet', '#loadingUploadingPJSiteInternet')">Envoyer</button>
-          <span id="loadingUploadingPJSiteInternet"></span>
+        <form id="formSiteInternet" action="upload.php?tableLiaison=<?=$nomTable?>&categorie=1" method="post" enctype="multipart/form-data">
+          <input type="text" id="SiteInternet" name="SiteInternet">
+          <button type="submit" onclick="wait('#formSiteInternet', '#loadingUploadingSiteInternet')">Envoyer</button>
+          <span id="loadingUploadingSiteInternet"></span>
         </form>
       </td>
     </tr>
@@ -194,7 +194,7 @@
         ></textarea>
       <?php endif; ?></td>
     </tr>
-    <?php if ($getModif != ''): ?>
+    <?php if ($getModif != ''): ?> <!-- Pièces-Jointe - Affichage -->
       <?php if ($nbLienContenu > 0): ?>
         <tr id="lienContenu" class="lienDoc">
           <td colspan="3" style="text-align:center">
@@ -217,12 +217,12 @@
           </td>
         </tr>
       <?php endif; ?>
-      <?php if ($nbLienPJSiteInternet > 0): ?>
-        <tr id="lienPJSiteInternet" class="lienDoc">
+      <?php if ($nbLienSiteInternet > 0): ?>
+        <tr id="lienSiteInternet" class="lienDoc">
           <td colspan="3" style="text-align:center">
             <label>Site Internet</label>
-            <?php for ($i=0; $i < $nbLienPJSiteInternet; $i++): ?>
-              <br/><a href="<?=$resultats_lienPJSiteInternet[$i]->liensiteintenet ?>"><?=$resultats_lienPJSiteInternet[$i]->liensiteintenet ?></a>
+            <?php for ($i=0; $i < $nbLienSiteInternet; $i++): ?>
+              <br/><a href="<?=$resultats_lienSiteInternet[$i]->liensiteintenet ?>"><?=$resultats_lienSiteInternet[$i]->liensiteintenet ?></a>
             <?php endfor; ?>
           </td>
         </tr>

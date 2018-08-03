@@ -60,7 +60,7 @@ ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_diff_id FOREIGN KEY 
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_etat_comm_id FOREIGN KEY (sent_etat_comm_id) REFERENCES bd_equipement.etat_communication(etat_comm_id);
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_site_cen_id FOREIGN KEY (sent_site_cen_id) REFERENCES md.site_cenhn("ID");
 
-ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_sent_id FOREIGN KEY (supp_comm_sent_id) REFERENCES bd_equipement.sentier(sent_id) ON DELETE CASCADE;
+ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_sent_id FOREIGN KEY (supp_comm_equi_id) REFERENCES bd_equipement.sentier(sent_id) ON DELETE CASCADE;
 ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_type_supp_comm_id FOREIGN KEY (supp_comm_type_supp_comm_id) REFERENCES bd_equipement.type_support_communication(type_supp_comm_id);
 
 
