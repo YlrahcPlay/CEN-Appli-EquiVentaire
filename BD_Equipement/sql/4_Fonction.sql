@@ -446,12 +446,15 @@ BEGIN
 
 	IF (objet = 'panneau') THEN
 		DELETE FROM bd_equipement.panneau WHERE pann_id = id_objet;
+		DELETE FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_equi_id = id_objet;
 
 	ELSIF (objet = 'sentier') THEN
 		DELETE FROM bd_equipement.sentier WHERE sent_id = id_objet;
+		DELETE FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_equi_id = id_objet;
 
 	ELSIF (objet = 'autreamgtcomm') THEN
 		DELETE FROM bd_equipement.autre_amenagement_communication WHERE autr_amen_comm_id = id_objet;
+		DELETE FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 3 AND supp_comm_equi_id = id_objet;
 
 	ELSIF (objet = 'cloture') THEN
 		SELECT COUNT(*) INTO nbVingtBarrClot FROM bd_equipement.barriere, bd_equipement.cloture WHERE ST_Distance(barr_geom, clot_geom) < 20 AND clot_id = id_objet;

@@ -28,8 +28,6 @@
 
         unlink($lien_miniature);
         unlink($lien);
-
-        $sql = "DELETE FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
       }
       else {
         $sql = "SELECT supp_comm_lien, supp_comm_type_supp_comm_id AS type_supp_comm_id FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
@@ -40,9 +38,9 @@
         if (in_array($objet, array(2, 3, 4))) {
           unlink($lien);
         }
-
-        $sql = "DELETE FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
       };
+
+      $sql = "DELETE FROM bd_equipement.support_communication WHERE supp_comm_date_enre = '".$id_fichier."'";
       pg_query($dbConnect, $sql);
     };
   };
