@@ -3,12 +3,12 @@
 ------------------------------------------------------------
 
 -- Table: Categorie
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (1, 'Panneau', 1);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (2, 'Sentier', 1);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (3, 'Autre Aménagement de Valorisation', 1);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (4, 'Clôture', 2);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (5, 'Barrière', 2);
-INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (6, 'Autre Aménagement de Gestion', 2);
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (1, 'Panneau');
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (2, 'Sentier');
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (3, 'Autre Aménagement de Valorisation');
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (4, 'Clôture');
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (5, 'Barrière');
+INSERT INTO bd_equipement.categorie (cate_id, cate_libe, cate_doma_id) VALUES (6, 'Autre Aménagement de Gestion');
 
 
 ------------------------------------------------------------
@@ -21,11 +21,6 @@ INSERT INTO bd_equipement.type_panneau (type_pann_id, type_pann_libe) VALUES (2,
 INSERT INTO bd_equipement.type_panneau (type_pann_id, type_pann_libe) VALUES (3, 'Site Préservé');
 INSERT INTO bd_equipement.type_panneau (type_pann_id, type_pann_libe) VALUES (4, 'Financeur');
 INSERT INTO bd_equipement.type_panneau (type_pann_id, type_pann_libe) VALUES (5, 'Autre');
-
--- Table: type_piece_jointe
-INSERT INTO bd_equipement.type_piece_jointe (type_piec_join_id, type_piec_join_libe) VALUES (1, 'Contenu');
-INSERT INTO bd_equipement.type_piece_jointe (type_piec_join_id, type_piec_join_libe) VALUES (2, 'Flash-Code');
-INSERT INTO bd_equipement.type_piece_jointe (type_piec_join_id, type_piec_join_libe) VALUES (3, 'Site Internet');
 
 
 -- Table: type_sentier
@@ -49,9 +44,12 @@ INSERT INTO bd_equipement.difficulte (diff_id, diff_libe) VALUES (3, '¤¤¤');
 
 
 -- Table: type_support_communication
-INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (1, 'Plaquette');
-INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (2, 'Site Internet');
-INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (3, 'Application');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (1, 'Photo');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (2, 'Contenu');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (3, 'Flashcode');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (4, 'Plaquette');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (5, 'Site Internet');
+INSERT INTO bd_equipement.type_support_communication (type_supp_comm_id, type_supp_comm_libe) VALUES (6, 'Application');
 
 
 -- Table: etat_communication/valorisation
@@ -98,6 +96,7 @@ INSERT INTO bd_equipement.type_fils (type_fils_id, type_fils_libe) VALUES (7, 'E
 INSERT INTO bd_equipement.type_fils (type_fils_id, type_fils_libe) VALUES (8, 'Fils Torsadé');
 INSERT INTO bd_equipement.type_fils (type_fils_id, type_fils_libe) VALUES (9, 'Grillage');
 INSERT INTO bd_equipement.type_fils (type_fils_id, type_fils_libe) VALUES (10, 'Lisse en Bois (Ranch)');
+INSERT INTO bd_equipement.type_fils (type_fils_id, type_fils_libe) VALUES (11, 'Aucun');
 
 -- Table: type_poteau
 INSERT INTO bd_equipement.type_poteau (type_pote_id, type_pote_libe) VALUES (1, 'Bois');
@@ -113,6 +112,7 @@ INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (
 INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (3, 'Bois');
 INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (4, 'Porte Grillagée');
 INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (5, 'Portail métalique');
+INSERT INTO bd_equipement.type_structure (type_stru_id, type_stru_libe) VALUES (6, 'Forestière');
 
 
 -- Table: etat_zootechnie/gestion

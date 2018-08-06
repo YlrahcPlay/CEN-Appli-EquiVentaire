@@ -47,32 +47,6 @@ CREATE TABLE bd_equipement.type_panneau(
 	CONSTRAINT prk_constraint_type_panneau PRIMARY KEY (type_pann_id)
 )WITHOUT OIDS;
 
--- Table: photo
-CREATE TABLE bd_equipement.photo(
-	photo_id				SERIAL NOT NULL,
-	photo_lien				VARCHAR (280),
-	photo_date_enre			TIMESTAMP ,
-	photo_pann_id			INT,
-	CONSTRAINT prk_constraint_photo PRIMARY KEY (photo_id)
-)WITHOUT OIDS;
-
--- Table: piece_jointe
-CREATE TABLE bd_equipement.piece_jointe(
-	piec_join_id				SERIAL NOT NULL,
-	piec_join_lien				VARCHAR (280),
-	piec_join_date_enre			TIMESTAMP ,
-	piec_join_type_piec_join_id	INT,
-	piec_join_pann_id			INT,
-	CONSTRAINT prk_constraint_piece_jointe PRIMARY KEY (piec_join_id)
-)WITHOUT OIDS;
-
--- Table: type_piece_jointe
-CREATE TABLE bd_equipement.type_piece_jointe(
-	type_piec_join_id		SERIAL NOT NULL,
-	type_piec_join_libe		VARCHAR (25),
-	CONSTRAINT prk_constraint_type_piece_jointe PRIMARY KEY (type_piec_join_id)
-)WITHOUT OIDS;
-
 
 -- Table: sentier
 CREATE TABLE bd_equipement.sentier(
@@ -116,9 +90,10 @@ CREATE TABLE bd_equipement.difficulte(
 CREATE TABLE bd_equipement.support_communication(
 	supp_comm_id				SERIAL NOT NULL,
 	supp_comm_lien				VARCHAR (280),
-	supp_comm_date_enre				TIMESTAMP ,
+	supp_comm_date_enre			TIMESTAMP ,
 	supp_comm_type_supp_comm_id	INT,
 	supp_comm_equi_id			INT,
+	supp_comm_cate_id			INT,
 	CONSTRAINT prk_constraint_support_communication PRIMARY KEY (supp_comm_id)
 )WITHOUT OIDS;
 
@@ -213,7 +188,7 @@ CREATE TABLE bd_equipement.barriere(
 -- Table: type_structure
 CREATE TABLE bd_equipement.type_structure(
 	type_stru_id		SERIAL NOT NULL,
-	type_stru_libe		VARCHAR (25),
+	type_stru_libe		VARCHAR (50),
 	CONSTRAINT prk_constraint_type_structure PRIMARY KEY (type_stru_id)
 )WITHOUT OIDS;
 

@@ -3,11 +3,6 @@ ALTER TABLE bd_equipement.panneau DROP CONSTRAINT FK_panneau_etat_comm_id;
 ALTER TABLE bd_equipement.panneau DROP CONSTRAINT FK_panneau_type_pann_id;
 ALTER TABLE bd_equipement.panneau DROP CONSTRAINT FK_panneau_site_cen_id;
 
-ALTER TABLE bd_equipement.photo DROP CONSTRAINT FK_photo_pann_id;
-
-ALTER TABLE bd_equipement.piece_jointe DROP CONSTRAINT FK_piece_jointe_type_piec_join_id;
-ALTER TABLE bd_equipement.piece_jointe DROP CONSTRAINT FK_piece_jointe_pann_id;
-
 
 ALTER TABLE bd_equipement.sentier DROP CONSTRAINT FK_sentier_type_sent_id;
 ALTER TABLE bd_equipement.sentier DROP CONSTRAINT FK_sentier_type_chem_id;
@@ -15,8 +10,9 @@ ALTER TABLE bd_equipement.sentier DROP CONSTRAINT FK_sentier_diff_id;
 ALTER TABLE bd_equipement.sentier DROP CONSTRAINT FK_sentier_etat_comm_id;
 ALTER TABLE bd_equipement.sentier DROP CONSTRAINT FK_sentier_site_cen_id;
 
-ALTER TABLE bd_equipement.support_communication DROP CONSTRAINT FK_support_communication_sent_id;
+
 ALTER TABLE bd_equipement.support_communication DROP CONSTRAINT FK_support_communication_type_supp_comm_id;
+ALTER TABLE bd_equipement.support_communication DROP CONSTRAINT FK_support_communication_cate_id;
 
 
 ALTER TABLE bd_equipement.autre_amenagement_communication DROP CONSTRAINT FK_autre_amenagement_communication_type_autr_amen_comm_id;
@@ -48,11 +44,6 @@ ALTER TABLE bd_equipement.panneau ADD CONSTRAINT FK_panneau_type_pann_id FOREIGN
 ALTER TABLE bd_equipement.panneau ADD CONSTRAINT FK_panneau_etat_comm_id FOREIGN KEY (pann_etat_comm_id) REFERENCES bd_equipement.etat_communication(etat_comm_id);
 ALTER TABLE bd_equipement.panneau ADD CONSTRAINT FK_panneau_site_cen_id FOREIGN KEY (pann_site_cen_id) REFERENCES md.site_cenhn("ID");
 
-ALTER TABLE bd_equipement.photo ADD CONSTRAINT FK_photo_pann_id FOREIGN KEY (photo_pann_id) REFERENCES bd_equipement.panneau(pann_id) ON DELETE CASCADE;
-
-ALTER TABLE bd_equipement.piece_jointe ADD CONSTRAINT FK_piece_jointe_type_piec_join_id FOREIGN KEY (piec_join_type_piec_join_id) REFERENCES bd_equipement.type_piece_jointe(type_piec_join_id);
-ALTER TABLE bd_equipement.piece_jointe ADD CONSTRAINT FK_piece_jointe_pann_id FOREIGN KEY (piec_join_pann_id) REFERENCES bd_equipement.panneau(pann_id) ON DELETE CASCADE;
-
 
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_type_sent_id FOREIGN KEY (sent_type_sent_id) REFERENCES bd_equipement.type_sentier(type_sent_id);
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_type_chem_id FOREIGN KEY (sent_type_chem_id) REFERENCES bd_equipement.type_cheminement(type_chem_id);
@@ -60,8 +51,9 @@ ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_diff_id FOREIGN KEY 
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_etat_comm_id FOREIGN KEY (sent_etat_comm_id) REFERENCES bd_equipement.etat_communication(etat_comm_id);
 ALTER TABLE bd_equipement.sentier ADD CONSTRAINT FK_sentier_site_cen_id FOREIGN KEY (sent_site_cen_id) REFERENCES md.site_cenhn("ID");
 
-ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_sent_id FOREIGN KEY (supp_comm_equi_id) REFERENCES bd_equipement.sentier(sent_id) ON DELETE CASCADE;
+
 ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_type_supp_comm_id FOREIGN KEY (supp_comm_type_supp_comm_id) REFERENCES bd_equipement.type_support_communication(type_supp_comm_id);
+ALTER TABLE bd_equipement.support_communication ADD CONSTRAINT FK_support_communication_cate_id FOREIGN KEY (supp_comm_cate_id) REFERENCES bd_equipement.categorie (cate_id);
 
 
 ALTER TABLE bd_equipement.autre_amenagement_communication ADD CONSTRAINT FK_autre_amenagement_communication_type_autr_amen_comm_id FOREIGN KEY (autr_amen_comm_type_autr_amen_comm_id) REFERENCES bd_equipement.type_autre_amenagement_communication(type_autr_amen_comm_id);
