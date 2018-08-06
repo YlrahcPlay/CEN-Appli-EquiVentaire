@@ -7,7 +7,8 @@
   $sqlTypeMobilite =
   "SELECT type_mobi_id AS id, type_mobi_libe AS libelle
   FROM bd_equipement.type_mobilite
-  WHERE type_mobi_id IN (1, 3)";
+  WHERE type_mobi_id IN (1, 3)
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_mobilite'])):
     $getTypeMobilite = $_GET['type_mobilite'];
@@ -18,7 +19,8 @@
   // Type
   $sqlTypeStructure =
   "SELECT type_stru_id AS id, type_stru_libe AS libelle
-  FROM bd_equipement.type_structure";
+  FROM bd_equipement.type_structure
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_structure'])):
     $getTypeStructure = $_GET['type_structure'];

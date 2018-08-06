@@ -3,10 +3,11 @@
   include('../fonction.php'); // Inclus les fonction php
 
 
-  // Type de Sentier
+  // Type de Aménagement
   $sqlType2ACommunication =
   "SELECT type_autr_amen_comm_id AS id, type_autr_amen_comm_libe AS libelle
-  FROM bd_equipement.type_autre_amenagement_communication";
+  FROM bd_equipement.type_autre_amenagement_communication
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_amenagement'])):
     $getType2AComm = $_GET['type_amenagement'];

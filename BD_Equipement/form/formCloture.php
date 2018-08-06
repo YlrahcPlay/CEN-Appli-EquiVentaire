@@ -6,7 +6,8 @@
   // Type de Clôture
   $sqlTypeMobilite =
   "SELECT type_mobi_id AS id, type_mobi_libe AS libelle
-  FROM bd_equipement.type_mobilite";
+  FROM bd_equipement.type_mobilite
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_mobilite'])):
     $getTypeMobilite = $_GET['type_mobilite'];
@@ -17,7 +18,8 @@
   // Type de fils
   $sqlTypeFils =
   "SELECT type_fils_id AS id, type_fils_libe AS libelle
-  FROM bd_equipement.type_fils";
+  FROM bd_equipement.type_fils
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_fils'])):
     $getTypeFils = $_GET['type_fils'];
@@ -28,7 +30,8 @@
   // Type de poteau
   $sqlTypePoteau =
   "SELECT type_pote_id AS id, type_pote_libe AS libelle
-  FROM bd_equipement.type_poteau";
+  FROM bd_equipement.type_poteau
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_poteau'])):
     $getTypePoteau = $_GET['type_poteau'];

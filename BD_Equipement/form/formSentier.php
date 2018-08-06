@@ -6,7 +6,8 @@
   // Type de Sentier
   $sqlTypeSentier =
   "SELECT type_sent_id AS id, type_sent_libe AS libelle
-  FROM bd_equipement.type_sentier";
+  FROM bd_equipement.type_sentier
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_sentier'])):
     $getTypeSentier = $_GET['type_sentier'];
@@ -18,7 +19,8 @@
   // Type de Cheminement
   $sqlTypeCheminement =
   "SELECT type_chem_id AS id, type_chem_libe AS libelle
-  FROM bd_equipement.type_cheminement";
+  FROM bd_equipement.type_cheminement
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type_cheminement'])):
     $getTypeCheminement = $_GET['type_cheminement'];
@@ -65,7 +67,8 @@
   // Supprot de communication
   $sql_suppComm = "SELECT type_supp_comm_id AS id, type_supp_comm_libe AS libelle
   FROM bd_equipement.type_support_communication
-  WHERE type_supp_comm_id IN (4, 5, 6)";
+  WHERE type_supp_comm_id IN (4, 5, 6)
+  ORDER BY libelle ASC";
 
   $resultats_supportComm = tableau_objet($dbConnect, $sql_suppComm);
 

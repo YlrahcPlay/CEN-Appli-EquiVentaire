@@ -159,7 +159,7 @@
 
     $sql = "SELECT bd_equipement.autre_amenagement_zootechnie(".$modif.", ".$geom.", ".$clefModif.", ".$type.", '".$date_amgt."'::date, ".$etat.", E'".$commentaire."'::text)";
   };
-
+  
   $requete = pg_query($dbConnect, $sql); // Requet d'insertion et de modification
 
   if ($objet == 'panneau' || $objet == 'sentier' || $objet == 'autreamgtcomm') {

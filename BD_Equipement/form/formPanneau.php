@@ -6,7 +6,8 @@
   // Type
   $sql_types =
   "SELECT type_pann_id AS id, type_pann_libe AS libelle
-  FROM bd_equipement.type_panneau";
+  FROM bd_equipement.type_panneau
+  ORDER BY libelle ASC";
 
   if(isset($_GET['type'])) {
     $getType = $_GET['type'];
@@ -44,7 +45,8 @@
   // Support de communication
   $sql_suppComm = "SELECT type_supp_comm_id AS id, type_supp_comm_libe AS libelle
   FROM bd_equipement.type_support_communication
-  WHERE type_supp_comm_id IN (2, 3, 5)";
+  WHERE type_supp_comm_id IN (2, 3, 5)
+  ORDER BY libelle ASC";
 
   $resultats_supportComm = tableau_objet($dbConnect, $sql_suppComm);
 

@@ -8,7 +8,7 @@
 // line 274 - Verification de la validité de la géométrie (A l'interieur d'un site ...)
 // line 307 - Chargement des attributs
 // line 349 - Cas du "panneau" de type "autre"
-// line 359 - Cas d'ajout de fichier aux "panneaux"
+// line 359 - Cas d'ajout de fichier aux "panneaux" ou aux "sentiers"
 // line 395 - Enregistrement des fichiers
 // line 419 - Suppression des tables temporaire (si fermeture sans enregistrement)
 // line 434 - Verification de la validité des attributs

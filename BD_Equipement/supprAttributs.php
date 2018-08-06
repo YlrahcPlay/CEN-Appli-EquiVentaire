@@ -31,10 +31,12 @@
     $resultats_supportComm = tableau_objet($dbConnect, $sql);
   };
 
+if (isset($resultats_supportComm)) {
   foreach ($resultats_supportComm as $supportComm) {
     $lien = $supportComm->lien;
     unlink($lien);
   };
+};
 
   // Appel de la fonction de suppression
   $sql = "SELECT bd_equipement.suppression('".$objet."', '".$clef."')";
