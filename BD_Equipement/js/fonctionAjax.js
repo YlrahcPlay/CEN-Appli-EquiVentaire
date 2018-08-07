@@ -33,7 +33,6 @@ function photoPanneau(id_panneau) {
         $(".diaporama").jDiaporama({
           width:200,
           height:150,
-
           delay:3,
           animationSpeed: "slow",
           transition: "slide",

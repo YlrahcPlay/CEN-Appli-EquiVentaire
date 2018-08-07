@@ -574,6 +574,7 @@ $(document).ready(function() { // Action à faire quand la page html est chargé
   // Création de l'échelle (position bas-gauche)
   echelleControl = L.control.scale({position: 'bottomleft'}).addTo(maCarte);
 
+  // attribution = L.control.attribution({prefix: 'Made with <a href="#">Leaflet</a>'});
 
   // Ajout des fonds de plan à la carte + ajout au controleur
   fondTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -593,6 +594,7 @@ $(document).ready(function() { // Action à faire quand la page html est chargé
     attribution: '&copy;2018 TerraMetrics, &copy;2018 Google'
   });
   lControl.addBaseLayer(googleSat, "Google Satellite");
+
 
   // Affichage des sites et équipements
   majsite();
