@@ -8,7 +8,7 @@
 		// var_dump($File);
 
 		if ($File['error'] == 0) {
-			if ($File['size'] < 2000000) { // Si taille du fichier inférieur à 2Mo
+			if ($File['size'] < 2100000) { // Si taille du fichier inférieur à 2Mo
 				$FileExtension = strtolower(pathinfo($File['name'],PATHINFO_EXTENSION)); // nom de l'extension
 
 				$FileNewName = time(); // Récup du temps
@@ -69,7 +69,7 @@
 				};
 			}
 			else { // Message d'erreur si la taille du fichier n'est pas respecté
-				$tailleMo = $_FILES[$objet]['size']/1000*1000;
+				$tailleMo = $_FILES['size']/1024*1024;
 				echo("<br/><span style=\"background: #F00; color: #FFF;\">La taille étant limité à 2Mo, le fichier spécifié est trop gros : ".$tailleMo." Mo</span>");
 			};
 		}
