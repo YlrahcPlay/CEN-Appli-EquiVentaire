@@ -5,7 +5,7 @@
 	// Fonction pour l'upload de fichier image ou pdf
 	function uploadFile($objet, $destination) { // Argument : Type & lieu d'enregistrement
 		$File = $_FILES[$objet];
-		// var_dump($File);
+		var_dump($File);
 
 		if ($File['error'] == 0) {
 			if ($File['size'] < 2100000) { // Si taille du fichier inférieur à 2Mo
@@ -69,7 +69,7 @@
 				};
 			}
 			else { // Message d'erreur si la taille du fichier n'est pas respecté
-				$tailleMo = $_FILES['size']/1024*1024;
+				$tailleMo = round($File['size']/(1024*1024),2);
 				echo("<br/><span style=\"background: #F00; color: #FFF;\">La taille étant limité à 2Mo, le fichier spécifié est trop gros : ".$tailleMo." Mo</span>");
 			};
 		}
@@ -149,6 +149,7 @@
 				$objet = "SiteInternet";
 				$type = 5;
 				$FileLink = $_POST['SiteInternet'];
+
 			}
 			elseif (isset($_POST['application'])) {
 				$objet = "Application";

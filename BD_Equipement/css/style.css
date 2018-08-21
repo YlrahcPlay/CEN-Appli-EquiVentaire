@@ -199,7 +199,12 @@ main #attributs table .label {
   padding-right: 0.1em;
 }
 
-main #attributs table #precision, #formContenu, #formFlashCode, #formSiteInternet, #formPlaquette, #formApplication, .docContenu, .docFlashCode, .docPlaquette {
+/* main #attributs .lienPDF {
+   cursor: pointer;
+   color:
+} */
+
+main #attributs table #precision, #formContenu, #formFlashCode, #formSiteInternet, #formPlaquette, #formApplication, .docContenu, .docFlashCode, .docPlaquette, .ref {
   display: none;
 }
 

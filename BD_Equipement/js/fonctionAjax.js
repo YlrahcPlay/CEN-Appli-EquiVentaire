@@ -788,3 +788,7 @@ function generePdf() {
   url_ficheSite = 'ficheSite.php'+'?site='+site;
   window.open(url_ficheSite);
 };
+
+function openFile(lien) {
+  window.open(lien);
+};
