@@ -67,7 +67,7 @@
 
 
   if ($getModif != '') {
-    $sql_lienContenu = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$getModif;
+    $sql_lienContenu = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienContenu = tableau_objet($dbConnect, $sql_lienContenu);
     $nbLienContenu = count($resultats_lienContenu);
     $LienContenuJPG = array();
@@ -83,7 +83,7 @@
     $nbLienContenuJPG = count($LienContenuJPG);
     $nbLienContenuPDF = count($LienContenuPDF);
 
-    $sql_lienFlashCode = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 3 AND supp_comm_equi_id = ".$getModif;
+    $sql_lienFlashCode = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_type_supp_comm_id = 3 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienFlashCode = tableau_objet($dbConnect, $sql_lienFlashCode);
     $nbLienFlashCode = count($resultats_lienFlashCode);
     $LienFlashCodeJPG = array();
@@ -99,7 +99,7 @@
     $nbLienFlashCodeJPG = count($LienFlashCodeJPG);
     $nbLienFlashCodePDF = count($LienFlashCodePDF);
 
-    $sql_lienSiteInternet = "SELECT supp_comm_lien AS liensiteintenet FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 5 AND supp_comm_equi_id = ".$getModif;
+    $sql_lienSiteInternet = "SELECT supp_comm_lien AS liensiteintenet FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 1 AND supp_comm_type_supp_comm_id = 5 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienSiteInternet = tableau_objet($dbConnect, $sql_lienSiteInternet);
     $nbLienSiteInternet = count($resultats_lienSiteInternet);
   };
@@ -235,7 +235,7 @@
             <?php endif; ?>
             <?php if ($nbLienContenuPDF != 0): ?>
               <?php for ($i=0; $i < $nbLienContenuPDF; $i++): ?>
-                <a class="lienPDF" href="#" onclick="openFile('<?=$LienContenuPDF[$i] ?>')">Contenu pdf n°<?=$i+1 ?></a>
+                <a class="lienPDF" href="#" onclick="openFile('<?=$LienContenuPDF[$i] ?>')">Contenu pdf n°<?=$i+1 ?></a><br/>
               <?php endfor; ?>
             <?php endif; ?>
           </td>
@@ -254,7 +254,7 @@
             <?php endif; ?>
             <?php if ($nbLienFlashCodePDF != 0): ?>
               <?php for ($i=0; $i < $nbLienFlashCodePDF; $i++): ?>
-                <a class="lienPDF" href="#" onclick="openFile('<?=$LienFlashCodePDF[$i] ?>')">Flashcode pdf n°<?=$i+1 ?></a>
+                <a class="lienPDF" href="#" onclick="openFile('<?=$LienFlashCodePDF[$i] ?>')">Flashcode pdf n°<?=$i+1 ?></a><br/>
               <?php endfor; ?>
             <?php endif; ?>
           </td>

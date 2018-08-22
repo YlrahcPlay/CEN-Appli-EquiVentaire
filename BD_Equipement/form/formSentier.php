@@ -64,7 +64,7 @@
 
   $resultats_difficultes = tableau_objet($dbConnect, $sql_difficultes);
 
-  // Supprot de communication
+  // Support de communication
   $sql_suppComm = "SELECT type_supp_comm_id AS id, type_supp_comm_libe AS libelle
   FROM bd_equipement.type_support_communication
   WHERE type_supp_comm_id IN (4, 5, 6)
@@ -92,7 +92,7 @@
   };
 
   if ($getModif != '') {
-    $sql_lienPlaquette = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 1 AND supp_comm_equi_id = " .$getModif;
+    $sql_lienPlaquette = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 4 AND supp_comm_equi_id = " .$getModif;
     $resultats_lienPlaquette = tableau_objet($dbConnect, $sql_lienPlaquette);
     $nbLienPlaquette = count($resultats_lienPlaquette);
     $LienPlaquetteJPG = array();
@@ -105,14 +105,14 @@
         array_push($LienPlaquettePDF, $resultats_lienPlaquette[$i]->lien);
       };
     };
-    $nbLienContenuJPG = count($LienContenuJPG);
-    $nbLienContenuPDF = count($LienContenuPDF);
+    $nbLienPlaquetteJPG = count($LienPlaquetteJPG);
+    $nbLienPlaquettePDF = count($LienPlaquettePDF);
 
-    $sql_lienSiteInternet = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = " .$getModif;
+    $sql_lienSiteInternet = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 5 AND supp_comm_equi_id = " .$getModif;
     $resultats_lienSiteInternet = tableau_objet($dbConnect, $sql_lienSiteInternet);
     $nbLienSiteInternet = count($resultats_lienSiteInternet);
 
-    $sql_lienApplication = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 3 AND supp_comm_equi_id = " .$getModif;
+    $sql_lienApplication = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 6 AND supp_comm_equi_id = " .$getModif;
     $resultats_lienApplication = tableau_objet($dbConnect, $sql_lienApplication);
     $nbLienApplication = count($resultats_lienApplication);
   }
@@ -211,7 +211,7 @@
     </tr>
     <tr> <!-- Support de communication - Insertion -->
       <td class="label"><label for="supportComm">Supports de valorisation : </label></td>
-      <td><select id="supportComm" name="supportComm" onchange="choixDoc('supportComm')">
+      <td><select id="supportComm" name="supportComm" onchange="choixDoc('sentier')">
         <option value="">Type à Choisir</option>
         <?php foreach ($resultats_supportComm as $supportComm): ?>
           <option value="<?=$supportComm->id ?>"><?=$supportComm->libelle ?></option>
@@ -228,9 +228,10 @@
         <form id="formSiteInternet" action="upload.php?tableLiaison=<?=$nomTable?>&categorie=2" method="post" enctype="multipart/form-data">
           <input type="text" id="SiteInternet" name="SiteInternet"/>
           <input type="submit" value="Envoyer" onclick="wait('#formSiteInternet', '#loadingUploadingSiteInternet')"/>
+          <p>Exemple : "http://www.MonSite.com"</p>
           <span id="loadingUploadingSiteInternet"></span>
         </form>
-        <form id="formApplication" action="upload.php?tableLiaison=<?=$nomTable?>" method="post" enctype="multipart/form-data">
+        <form id="formApplication" action="upload.php?tableLiaison=<?=$nomTable?>&categorie=2" method="post" enctype="multipart/form-data">
         	<input type="text" id="application" name="application"/>
         	<input type="submit" value="Envoyer" onclick="wait('#formApplication', '#loadingUploadApplication')"/>
         	<span id="loadingUploadApplication"></span>
@@ -265,7 +266,7 @@
             <?php endif; ?>
             <?php if ($nbLienPlaquettePDF != 0): ?>
               <?php for ($i=0; $i < $nbLienPlaquettePDF; $i++): ?>
-                <a class="lienPDF" href="#" onclick="openFile('<?=$LienPlaquettePDF[$i] ?>')">Plaquette pdf n°<?=$i+1 ?></a>
+                <a class="lienPDF" href="#" onclick="openFile('<?=$LienPlaquettePDF[$i] ?>')">Plaquette pdf n°<?=$i+1 ?></a><br/>
               <?php endfor; ?>
             <?php endif; ?>
           </td>
@@ -276,7 +277,7 @@
           <td colspan="3" style="text-align:center">
             <label>Site Internet</label>
             <?php for ($i=0; $i < $nbLienSiteInternet; $i++): ?>
-              <br/><a href="<?=$resultats_lienSiteInternet[$i]->lien ?>"><?=$resultats_lienSiteInternet[$i]->lien ?></a>
+              <br/><a href="#" onclick="openFile('<?=$resultats_lienSiteInternet[$i]->lien ?>')"><?=$resultats_lienSiteInternet[$i]->lien ?></a>
             <?php endfor; ?>
           </td>
         </tr>
@@ -286,7 +287,7 @@
           <td colspan="3" style="text-align:center">
             <label>Application</label>
             <?php for ($i=0; $i < $nbLienApplication; $i++): ?>
-              <br/><a href="https://www.google.com/search?q=application+<?=$resultats_lienApplication[$i]->lien ?>"><?=$resultats_lienApplication[$i]->lien ?></a>
+              <br/><a href="#" onclick="openFile('https://www.google.com/search?q=application+<?=addslashes($resultats_lienApplication[$i]->lien) ?>')"><?=$resultats_lienApplication[$i]->lien ?></a>
             <?php endfor; ?>
           </td>
         </tr>

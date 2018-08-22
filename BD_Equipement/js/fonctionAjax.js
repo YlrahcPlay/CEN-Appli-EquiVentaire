@@ -790,5 +790,6 @@ function generePdf() {
 };
 
 function openFile(lien) {
+  console.log(lien);
   window.open(lien);
 };

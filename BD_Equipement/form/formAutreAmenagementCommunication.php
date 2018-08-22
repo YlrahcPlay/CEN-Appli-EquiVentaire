@@ -45,9 +45,21 @@
   };
 
   if ($getModif != '') {
-    $sql_lienContenu = "SELECT supp_comm_lien AS liencontenu FROM bd_equipement.support_communication WHERE supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$getModif;
+    $sql_lienContenu = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 3 AND supp_comm_type_supp_comm_id = 2 AND supp_comm_equi_id = ".$getModif;
     $resultats_lienContenu = tableau_objet($dbConnect, $sql_lienContenu);
     $nbLienContenu = count($resultats_lienContenu);
+    $LienContenuJPG = array();
+    $LienContenuPDF = array();
+    for ($i=0; $i < $nbLienContenu; $i++) {
+      if (strrchr($resultats_lienContenu[$i]->lien, '.') == '.jpg') {
+        array_push($LienContenuJPG, $resultats_lienContenu[$i]->lien);
+      }
+      elseif (strrchr($resultats_lienContenu[$i]->lien, '.') == '.pdf') {
+        array_push($LienContenuPDF, $resultats_lienContenu[$i]->lien);
+      };
+    };
+    $nbLienContenuJPG = count($LienContenuJPG);
+    $nbLienContenuPDF = count($LienContenuPDF);
   };
 
   $nomTable = creationLiaison($dbConnect);
@@ -122,10 +134,18 @@
         <tr id="lienContenu" class="lienDoc">
           <td colspan="3" style="text-align:center">
             <label>Contenu</label>
-            <br/><a href="http://localhost/BD_Equipement/<?=$resultats_lienContenu[0]->liencontenu ?>" data-lightbox="contenu" data-title="Contenu">Il y a <?=$nbLienContenu ?> élément de contenu.</a>
-            <?php for ($i=1; $i < $nbLienContenu; $i++): ?>
-              <a class="docContenu" href="http://localhost/BD_Equipement/<?=$resultats_lienContenu[$i]->liencontenu ?>" data-lightbox="contenu" data-title="Contenu"/>
-            <?php endfor; ?>
+            <p>Il y a <?=$nbLienContenu ?> élément de contenu.</p>
+            <?php if ($nbLienContenuJPG != 0): ?>
+              <br/><a href="http://localhost/BD_Equipement/<?=$LienContenuJPG[0] ?>" data-lightbox="contenu" data-title="Contenu">Il y a <?=$nbLienContenuJPG ?> images associées.</a>
+              <?php for ($i=1; $i < $nbLienContenuJPG; $i++): ?>
+                <a class="docContenu" href="http://localhost/BD_Equipement/<?=$LienContenuJPG[$i] ?>" data-lightbox="contenu" data-title="Contenu"/>
+              <?php endfor; ?>
+            <?php endif; ?>
+            <?php if ($nbLienContenuPDF != 0): ?>
+              <?php for ($i=0; $i < $nbLienContenuPDF; $i++): ?>
+                <a class="lienPDF" href="#" onclick="openFile('<?=$LienContenuPDF[$i] ?>')">Contenu pdf n°<?=$i+1 ?></a>
+              <?php endfor; ?>
+            <?php endif; ?>
           </td>
         </tr>
       <?php endif; ?>

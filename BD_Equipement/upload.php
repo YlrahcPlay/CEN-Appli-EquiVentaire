@@ -5,7 +5,7 @@
 	// Fonction pour l'upload de fichier image ou pdf
 	function uploadFile($objet, $destination) { // Argument : Type & lieu d'enregistrement
 		$File = $_FILES[$objet];
-		var_dump($File);
+		// var_dump($File);
 
 		if ($File['error'] == 0) {
 			if ($File['size'] < 2100000) { // Si taille du fichier inférieur à 2Mo
@@ -142,20 +142,23 @@
 	}
 	// Si c'est un site internet ou une application, Création de la requête sql
 	elseif (isset($_POST['SiteInternet']) || isset($_POST['application'])) {
-		if ($_POST['SiteInternet'] != '' || $_POST['application'] != '') {
+		if (isset($_POST['SiteInternet']) AND $_POST['SiteInternet'] != '') {
 			$categorie = $_GET['categorie'];
 
-			if (isset($_POST['SiteInternet'])) {
-				$objet = "SiteInternet";
-				$type = 5;
-				$FileLink = $_POST['SiteInternet'];
+			$objet = "SiteInternet";
+			$type = 5;
+			$FileLink = $_POST['SiteInternet'];
 
-			}
-			elseif (isset($_POST['application'])) {
-				$objet = "Application";
-				$type = 6;
-				$FileLink = addslashes($_POST['application']);
-			};
+			$FileNewName = time();
+
+			$sql = "INSERT INTO bd_equipement.support_communication(supp_comm_lien, supp_comm_cate_id, supp_comm_type_supp_comm_id, supp_comm_date_enre) VALUES(E'".$FileLink."', ".$categorie.", ".$type.", to_timestamp('".$FileNewName."'))";
+		}
+		elseif (isset($_POST['application']) AND $_POST['application'] != '') {
+			$categorie = $_GET['categorie'];
+			
+			$objet = "Application";
+			$type = 6;
+			$FileLink = addslashes($_POST['application']);
 
 			$FileNewName = time();
 
