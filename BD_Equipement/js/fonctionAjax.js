@@ -58,11 +58,12 @@ $('#lightbox').ready(
 });
 
 // Suppressio, d'image
-function supprImg() {
-    suppr = confirm("Confirmez-vous la suppression de l'image ?") // Ouverture de la boite de confirmation
+function supprImg(lien) {
+  console.log(lien);
+    suppr = confirm("Confirmez-vous la suppression du fichier ?") // Ouverture de la boite de confirmation
 
     if (suppr == true) {
-      lien = $('.lb-image').attr('src');
+      // lien = $('.lb-image').attr('src');
 
       $.ajax({
         url : "supprImg.php", // Où envoyer la requête

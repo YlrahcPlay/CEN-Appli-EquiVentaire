@@ -212,6 +212,11 @@ main #attributs .lienDoc label {
   font-weight: bold;
 }
 
+main #attributs .lienDoc img {
+  width: 1em;
+  cursor: pointer;
+}
+
 main #attributs .formPied {
   display: flex;
   flex-direction: column;

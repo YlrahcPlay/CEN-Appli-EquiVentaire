@@ -95,18 +95,6 @@
     $sql_lienPlaquette = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 4 AND supp_comm_equi_id = " .$getModif;
     $resultats_lienPlaquette = tableau_objet($dbConnect, $sql_lienPlaquette);
     $nbLienPlaquette = count($resultats_lienPlaquette);
-    $LienPlaquetteJPG = array();
-    $LienPlaquettePDF = array();
-    for ($i=0; $i < $nbLienPlaquette; $i++) {
-      if (strrchr($resultats_lienPlaquette[$i]->lien, '.') == '.jpg') {
-        array_push($LienPlaquetteJPG, $resultats_lienPlaquette[$i]->lien);
-      }
-      elseif (strrchr($resultats_lienPlaquette[$i]->lien, '.') == '.pdf') {
-        array_push($LienPlaquettePDF, $resultats_lienPlaquette[$i]->lien);
-      };
-    };
-    $nbLienPlaquetteJPG = count($LienPlaquetteJPG);
-    $nbLienPlaquettePDF = count($LienPlaquettePDF);
 
     $sql_lienSiteInternet = "SELECT supp_comm_lien AS lien FROM bd_equipement.support_communication WHERE supp_comm_cate_id = 2 AND supp_comm_type_supp_comm_id = 5 AND supp_comm_equi_id = " .$getModif;
     $resultats_lienSiteInternet = tableau_objet($dbConnect, $sql_lienSiteInternet);
@@ -258,15 +246,9 @@
           <td colspan="3" style="text-align:center">
             <label>Plaquette</label>
             <p>Il y a <?=$nbLienPlaquette ?> Plaquettes.</p>
-            <?php if ($nbLienPlaquetteJPG != 0): ?>
-              <br/><a href="http://localhost/BD_Equipement/<?=$LienPlaquetteJPG[0] ?>" data-lightbox="plaquette" data-title="Plaquette">Il y a <?=$nbLienFlashCodeJPG ?> images associées.</a>
-              <?php for ($i=1; $i < $nbLienPlaquetteJPG; $i++): ?>
-                <a class="docContenu" href="http://localhost/BD_Equipement/<?=$LienPlaquetteJPG[$i] ?>" data-lightbox="plaquette" data-title="Plaquette"/>
-              <?php endfor; ?>
-            <?php endif; ?>
-            <?php if ($nbLienPlaquettePDF != 0): ?>
-              <?php for ($i=0; $i < $nbLienPlaquettePDF; $i++): ?>
-                <a class="lienPDF" href="#" onclick="openFile('<?=$LienPlaquettePDF[$i] ?>')">Plaquette pdf n°<?=$i+1 ?></a><br/>
+            <?php if ($nbLienPlaquette != 0): ?>
+              <?php for ($i=0; $i < $nbLienPlaquette; $i++): ?>
+                <a href="#" onclick="openFile('<?=$resultats_lienPlaquette[$i]->lien ?>')">Plaquette n°<?=$i+1 ?></a> <img src="img/delete.png" alt="Supprimer" onclick="supprImg('<?=$resultats_lienPlaquette[$i]->lien ?>')"><br/>
               <?php endfor; ?>
             <?php endif; ?>
           </td>

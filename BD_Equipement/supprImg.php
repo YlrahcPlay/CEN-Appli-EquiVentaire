@@ -8,11 +8,11 @@
   $objet = $lien_explode[1];
 
   if ($objet == 'photo') {
-    $id_fichier = explode('.', $lien_explode[2]);
-    $id_fichier = $id_fichier[0];
+    $id_fichier = explode('.', $lien_explode[3]);
+    $id_fichier = substr($id_fichier[0], 5);
 
-    $lien_miniature = $lien_explode[0]."/".$lien_explode[1]."/miniature/mini_".$lien_explode[2];
-    unlink($lien_miniature);
+    $lien_complet = $lien_explode[0]."/".$lien_explode[1]."/".$id_fichier.".jpg";
+    unlink($lien_complet);
 
     $sql = "DELETE FROM bd_equipement.support_communication WHERE supp_comm_date_enre = to_timestamp('".$id_fichier."')";
   }
